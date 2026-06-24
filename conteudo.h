@@ -1,16 +1,15 @@
-// 1. Inicialização da inclusão do header
+// 1. Inicializaï¿½ï¿½o da inclusï¿½o do header
 #ifndef CONTEUDO_H_INCLUDED
 #define CONTEUDO_H_INCLUDED
 
-// 2. Inclusão de bibliotecas existentes
+// 2. Inclusï¿½o de bibliotecas existentes
 #include <string>
 
-// 3. Declaração de classes das bibliotecas criadas para evitar inclusão cíclica
-class ListaContCad;
-class ListaContRec;
-class ListaContMaisAssist;
+// 3. Declaraï¿½ï¿½o de classes das bibliotecas criadas para evitar inclusï¿½o cï¿½clica
+class ListaSimples;
+class ListaDupla;
 
-// 4. Struct para definir conteúdo
+// 4. Struct para definir conteï¿½do
 typedef struct Conteudo {
     int id;
     std::string titulo;
@@ -18,17 +17,23 @@ typedef struct Conteudo {
     std::string genero;
     int ano;
     int numViews;
+    float avaliacao;
 } Conteudo;
 
-// 5. Funções que serão executadas no sistema
+// 5. Funï¿½ï¿½es que serï¿½o executadas no sistema
 // // 5.1. CADASTRAR E REMOVER
-void cadastrarConteudo(ListaContCad& listaCad, ListaContMaisAssist& listaAssist, std::string titulo, std::string tipo, std::string genero, int ano);
-void removerConteudo(ListaContCad& listaCad, ListaContMaisAssist& listaAssist, ListaContRec& listaRec, int id);
-// // 5.2. LISTAGEM
-void listaCadastrados(ListaContCad& listaCad);
-void listaRecomendados(ListaContRec& listaRec);
-void listaMaisAssistidos(ListaContMaisAssist& listaAssist);
-// // 5.3. ASSISTIR
-void assistirConteudo(ListaContCad& listaCad, ListaContMaisAssist& listaAssist, int id);
+void cadastrarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, std::string titulo, std::string tipo, std::string genero, int ano);
+
+// Ajustado para receber 'titulo' em vez de 'id', pois listas.h busca pela string do nome
+void removerConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, std::string titulo);
+
+// 5.2. LISTAGEM
+void listaCadastrados(ListaDupla& listaCad);
+void listaRecomendados(ListaSimples& listaRec);
+void listaMaisAssistidos(ListaDupla& listaAssist);
+
+// 5.3. ASSISTIR
+// Ajustado para receber 'titulo' para linkar diretamente com incrementarVisualizacoes(string& nome)
+void assistirConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, std::string titulo);
 
 #endif // CONTEUDO_H_INCLUDED

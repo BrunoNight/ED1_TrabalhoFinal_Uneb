@@ -1,23 +1,23 @@
-// 1. Inicialização da inclusão do header
+// 1. Inicializaï¿½ï¿½o da inclusï¿½o do header
 #ifndef ARVORE_H_INCLUDED
 #define ARVORE_H_INCLUDED
 
-// 2. Inclusão de bibliotecas existentes
+// 2. Inclusï¿½o de bibliotecas existentes
 #include <string>
 
-// 3. Declaração de classes e structs das bibliotecas criadas para evitar inclusão cíclica
+// 3. Declaraï¿½ï¿½o de classes e structs das bibliotecas criadas para evitar inclusï¿½o cï¿½clica
 class ListaContCad;
 class ListaContRec;
 
-// 4. Classe do nó da árvore
+// 4. Classe do nï¿½ da ï¿½rvore
 class NodoA { public:
     std::string texto;
     NodoA* sim; // Para a esquerda
     NodoA* nao; // Para a direita
-    bool folha; // Identificar se é o última nível ou não
+    bool folha; // Identificar se ï¿½ o ï¿½ltima nï¿½vel ou nï¿½o
 };
 
-// 5. Classe da árvore
+// 5. Classe da ï¿½rvore
 class Arvore { public:
     NodoA* raiz;
     Arvore() {
