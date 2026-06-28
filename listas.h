@@ -17,9 +17,8 @@ class NodoSimples {
     		proximo = nullptr;
     	}
 };
- 
-// ── Nó para Lista Duplamente Encadeada ──────────────────────
-struct NodoDuplo {
+
+class NodoDuplo {
 	public:
 	    Conteudo conteudo;
 	    NodoDuplo* proximo;
@@ -34,27 +33,15 @@ struct NodoDuplo {
 
 class ListaSimples {
 	public:
-	    // ── Construtores / Destrutores ───────────────────────────
 	    ListaSimples();
-	    ~ListaSimples();
-	 
-	    // ── Inserção ─────────────────────────────────────────────
-	    // Insere mantendo ordem decrescente por avaliação
+
 	    void inserirOrdenado(Conteudo& c);
 	 
-	    // ── Remoção ──────────────────────────────────────────────
-	    // Remove o primeiro nó com conteudo.nome == nome
-	    // Retorna true se encontrado e removido, false caso contrário
-	    bool remover(string& nome);
-	 
-	    // ── Busca ────────────────────────────────────────────────
-	    // Retorna ponteiro para o nó ou nullptr se não encontrado
-	    NodoSimples* buscar(string& nome);
-	 
-	    // ── Exibição ─────────────────────────────────────────────
+	    bool remover(const string& nome);
+
+	    NodoSimples* buscar(const string& nome);
 	    void exibir();
 	 
-	    // ── Utilitários ──────────────────────────────────────────
 	    int  getTamanho();
 	    bool estaVazia();
 	    void limpar();
@@ -66,30 +53,19 @@ class ListaSimples {
 
 class ListaDupla {
 	public:
-	    // ── Construtores / Destrutores ───────────────────────────
 	    ListaDupla();
-	    ~ListaDupla();
-	 
-	    // ── Inserção ─────────────────────────────────────────────
-	    // Insere mantendo ordem decrescente por visualizações
+
 	    void inserirOrdenado(Conteudo& c);
 	 
-	    // ── Remoção ──────────────────────────────────────────────
-	    bool remover(string& nome);
+	    bool remover(string nome);
 	 
-	    // ── Busca ────────────────────────────────────────────────
-	    NodoDuplo* buscar(string& nome);
+	    NodoDuplo* buscar(string nome);
 	 
-	    // ── Exibição bidirecional ─────────────────────────────────
-	    void exibirFrente();   // cabeça → cauda (ranking normal)
-	    void exibirReverso();   // cauda → cabeça (via ponteiro anterior)
+	    void exibirFrente();
+	    void exibirReverso();
 	 
-	    // ── Funcionalidade "Assistir" ─────────────────────────────
-	    // Incrementa visualizações em +1 e reposiciona o nó
-	    // Retorna false se o título não existir
-	    bool incrementarVisualizacoes(string& nome);
+	    bool incrementarVisualizacoes(string nome);
 	 
-	    // ── Utilitários ──────────────────────────────────────────
 	    int  getTamanho();
 	    bool estaVazia();
 	    void limpar();
@@ -99,14 +75,10 @@ class ListaDupla {
 	    NodoDuplo* cauda;
 	    int      tamanho;
 	 
-	    // ── Auxiliares internos ───────────────────────────────────
-	    // Desvincula o nó da lista sem deletar (mantém o ponteiro)
 	    void desvincular(NodoDuplo* no);
-	 
-	    // Insere um nó já existente na posição correta da lista
+
 	    void inserirNo(NodoDuplo* no);
-	 
-	    // Verifica se o nó está fora de ordem e o reposiciona
+
 	    void reposicionar(NodoDuplo* no);
 };
 
