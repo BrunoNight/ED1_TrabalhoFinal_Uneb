@@ -1,0 +1,72 @@
+1;Você prefere produções com atores reais (Live-Action)?;0
+1-1;Você escolhe por produções live-action recentes (2000 - atual)?;0
+1-2;Você escolhe por produções animadas recentes (2000 - atual)?;0
+1-1-1;Você prefere produções em formato de historia única?;0
+1-1-2;Você prefere produções em formato de historia única?;0
+1-2-1;Você prefere produções em formato longo de historia única?;0
+1-2-2;Você prefere produções em formato longo de historia única?;0
+1-1-1-1;Prefere documentários?;0
+1-1-1-2;O tom principal da série deve ser focado em aspectos fantasiosos ou ficcionais?;0
+1-1-2-1;Prefere documentários?;0
+1-1-2-2;O tom principal da série deve ser focado em aspectos fantasiosos ou ficcionais?;0
+1-1-2-1;Prefere documentários?;0
+1-1-2-2;O tom principal da série deve ser focado em aspectos fantasiosos ou ficcionais?;0
+1-2-1-1;O tom principal da longa animação deve ser focado em aspectos fantasiosos ou ficcionais?;0
+1-2-1-2;Prefere animações japonesas?;0
+1-2-2-1;O tom principal da longa animação deve ser focado em aspectos fantasiosos ou ficcionais?;0
+1-2-2-2;Prefere animações japonesas?;0
+1-1-1-1-1;O documentário deve ser focado em crimes, mistérios ou casos macabros da vida real?;0
+1-1-1-1-2;Prefere longas metragens (filmes) focadas em aspectos fantasiosos ou ficcionais?;0
+1-1-1-2-1;Séries de magia te atrai mais em oposição à alta tecnologia?;0
+1-1-1-2-2;Você opta por comédia ou drama em suas séries?;0
+1-1-2-1-1;O documentário deve ser focado em crimes, mistérios ou casos macabros da vida real?;0
+1-1-2-1-2;Prefere longas metragens (filmes) focadas em aspectos fantasiosos ou ficcionais?;0
+1-1-2-2-1;Séries de magia te atrai mais ao oposto de produções focadas em alta tecnologia?;0
+1-1-2-2-2;Você opta por comédia ou drama em suas séries?;0
+1-2-1-1-1;Filmes animados de magia te atrai mais em oposição à produções focadas em alta tecnologia?;0
+1-2-1-1-2;Você opta por comédia ou drama em seus filmes animados?;0
+1-2-1-2-1;Prefere animes focados em aspectos fantasiosos ou ficcionais?;0
+1-2-1-2-2;Prefere cartoons focados em aspectos fantasiosos ou ficcionais?;0
+1-2-2-1-1;Filmes animados de magia te atrai mais?;0
+1-2-2-1-2;Você opta por comédia ou drama em seus filmes animados?;0
+1-2-2-2-1;Prefere animes focados em aspectos fantasiosos ou ficcionais?;0
+1-2-2-2-2;Prefere cartoons focados em aspectos fantasiosos ou ficcionais?;0
+1-1-1-1-1-1;Você prefere documentários focados no medo, repulsa e paranoia?;0
+1-1-1-1-1-2;Você prefere documentários focados em comédia ao invés de aspectos fantasiosos?;0
+1-1-1-1-2-1;Filmes de alta tecnologia te atrai mais ao invés de magia?;0
+1-1-1-2-2-1;Você tem preferência por séries focadas em comédia em vez de drama?;0
+1-1-1-2-2-2;Você prefere séries focadas no medo, repulsa e paranoia em oposição à séries focadas em ação?;0
+1-1-2-1-1-1;Você prefere documentários focados no medo, repulsa e paranoia?;0
+1-1-2-1-1-2;Você prefere documentários focados em comédia ao invés de aspectos fantasiosos?;0
+1-1-2-1-2-1;Filmes de magia te atrai mais ao oposto de produções focadas em alta tecnologia?;0
+1-1-2-1-2-2;Você opta por comédia ou drama em seus filmes?;0
+1-1-2-2-2-1;Você tem preferência por séries focadas em comédia em vez de drama?;0
+1-1-2-2-2-2;Você prefere séries focadas no medo, repulsa e paranoia em oposição à séries focadas em ação?;0
+1-2-1-1-2-1;Você tem preferência por filmes animados focados em comédia em vez de drama?;0
+1-2-1-1-2-2;Você prefere filmes animados focados no medo, repulsa e paranoia em oposição à produções animadas focadas em ação?;0
+1-2-1-2-1-1;Animes de magia te atrai mais em oposição à alta tecnologia?;0
+1-2-1-2-1-2;Você opta por comédia ou drama em suas animes?;0
+1-2-1-2-2-1;Cartoons de magia te atrai mais em oposição à alta tecnologia?;0
+1-2-1-2-2-2;Você opta por comédia ou drama em seus cartoons?;0
+1-2-2-1-2-1;Você tem preferência por filmes animados focados em comédia em vez de drama?;0
+1-2-2-1-2-2;Você prefere filmes animados focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;0
+1-2-2-2-1-1;Animes de magia te atrai mais em oposição à alta tecnologia?;0
+1-2-2-2-1-2;Você opta por comédia ou drama em suas animes?;0
+1-2-2-2-2-1;Cartoons de magia te atrai mais em oposição à alta tecnologia?;0
+1-2-2-2-2-2;Você opta por comédia ou drama em seus cartoons?;0
+1-1-1-1-1-1-2;Você prefere documentários focados em ação ao invés de drama?;0
+1-1-1-1-1-2-2;Documentários focados em fantasia te atrai mais em oposição à alta tecnologia?;0
+1-1-1-1-2-2-1;Você tem preferência por filmes focados em comédia em vez de drama?;0
+1-1-1-1-2-2-2;Você prefere filmes focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;0
+1-1-2-1-1-1-2;Você prefere documentários focados em ação ao invés de drama?;0
+1-1-2-1-1-2-2;Documentários focados em fantasia te atrai mais em oposição à alta tecnologia?;0
+1-1-2-1-2-2-1;Você tem preferência por filmes focados em comédia em vez de drama?;0
+1-1-2-1-2-2-2;Você prefere filmes focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;0
+1-2-1-2-1-2-1;Você tem preferência por animes focados em comédia em vez de drama?;0
+1-2-1-2-1-2-2;Você prefere animes focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;0
+1-2-1-2-2-2-1;Você tem preferência por cartoons focados em comédia em vez de drama?;0
+1-2-1-2-2-2-2;Você prefere cartoons focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;0
+1-2-2-2-1-2-1;Você tem preferência por animes focados em comédia em vez de drama?;0
+1-2-2-2-1-2-2;Você prefere animes focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;0
+1-2-2-2-2-2-1;Você tem preferência por cartoons focados em comédia em vez de drama?;0
+1-2-2-2-2-2-2;Você prefere cartoons focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;0
