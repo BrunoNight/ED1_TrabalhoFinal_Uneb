@@ -22,12 +22,13 @@ typedef struct Usuario {
 
 // 6. Funções que serão executadas no sistema
 // // 6.1. ADMINISTRADOR E COMUM
-Usuario* logarUsuario(ListaUsuarios& listaUsuarios, std::string login, std::string senha);
-void cadastrarUsuario(ListaUsuarios& listaUsuarios, std::string login, std::string senha, perfil tipo);
-void alterarLogin(ListaUsuarios& listaUsuarios, std::string login, std::string nvLogin);
-void alterarSenha(ListaUsuarios& listaUsuarios, std::string login, std::string nvSenha);
+Usuario* logarUsuario(ListaUsuarios& listaUsuarios, const std::string login, const std::string senha);
+void cadastrarUsuario(ListaUsuarios& listaUsuarios, const std::string login, const std::string senha, perfil tipo);
+void alterarLogin(ListaUsuarios& listaUsuarios, const std::string login, const std::string nvLogin);
+void alterarSenha(ListaUsuarios& listaUsuarios, const std::string login, const std::string nvSenha);
 // // 6.2. ADMINISTRADOR
 void listarUsuarios(ListaUsuarios& listaUsuarios);
-void excluirUsuario(ListaUsuarios& listaUsuarios, std::string login);
+void excluirUsuario(ListaUsuarios& listaUsuarios, const std::string login);
 
 #endif // USUARIO_H_INCLUDED
+

@@ -33,5 +33,27 @@ void Pilha::empilhar(NodoA* no) {
 
 // 8. Função de desempilhamento
 NodoA* Pilha::desempilhar() {
+    if(estaVazio()) {
+        return nullptr; // Retorna nulo se não houver elementos para remover
+    }
 
+    NodoP* temp = topo; // Guarda o nó atual do topo
+    NodoA* noRetorno = temp -> noArvore; // Salva o ponteiro do nó da árvore
+
+    topo = topo -> prox; // Move o topo para o próximo elemento
+    delete temp; // Libera a memória do nó da pilha
+
+    return noRetorno; // Retorna o ponteiro do nó da árvore recuperado
+}
+
+// 9. Função para verificar se a pilha está vazia
+bool Pilha::estaVazio() {
+    return (topo == nullptr);
+}
+
+// 10. Função para apagar toda a pilha (liberar memória)
+void Pilha::apagarPilha() {
+    while (!estaVazio()) {
+        desempilhar(); // Reutiliza a lógica do desempilhar para limpar cada nó
+    }
 }

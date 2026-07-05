@@ -5,6 +5,7 @@
 // 2. Inclusão de bibliotecas criadas
 #include "menu.h"
 #include "estetica.h"
+#include "admin.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
@@ -13,14 +14,8 @@ using namespace std;
 static const string bordaA(50, '-');
 static const string bordaB(20, '=');
 
-// 5. Função para limpar mensagens de erro por digitação inválida no cin
-void limparBufferEntrada() {
-    cin.clear();
-    cin.ignore(10000, '\n');
-}
-
-// 6. Função para exibição e funcionamento do menu inicial do sistema
-void executarSistema() { //** Dentro dos parênteses terá as listas e funcionalidades de outras partes do sistema
+// 5. Função para exibição e funcionamento do menu inicial do sistema
+void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est) {
     int opcao = 0;
 
     while(opcao != 3) {
@@ -43,11 +38,13 @@ void executarSistema() { //** Dentro dos parênteses terá as listas e funcionalid
                 centralizarTexto(Estetica::YELLOW + "TELA DE LOGIN");
                 centralizarTexto(Estetica::RED + "Digite o Login: ");
                 cin >> login;
+                limparBufferEntrada();
                 centralizarTexto(Estetica::RED + "Digite a Senha: ");
                 cin >> senha;
+                limparBufferEntrada();
 
                 // Busca o usuário na lista de usuários cadastrados
-                Usuario* usuarioLogado = logarUsuario(listaUsuarios, login, senha);
+                Usuario* usuarioLogado = logarUsuario(ListaU, login, senha);
 
                 if(usuarioLogado == nullptr) {
                     centralizarTexto("\n[Aviso] Credenciais incorretas ou usuário inexistente! [Aviso]");
@@ -56,9 +53,9 @@ void executarSistema() { //** Dentro dos parênteses terá as listas e funcionalid
 
                     // Redireciona conforme o nível de permissão
                     if(usuarioLogado -> tipo == ADMINISTRADOR) {
-                        povAdministrador(); //** Dentro dos parênteses terá as listas e funcionalidades de outras partes do sistema
+                        povAdministrador(usuarioLogado, ListaU, ListaSimplesC, ListaDuplaC, arv, est);
                     } else {
-                        povUsuarioComum(); //** Dentro dos parênteses terá as listas e funcionalidades de outras partes do sistema
+                        povUsuarioComum(usuarioLogado, ListaU, ListaSimplesC, ListaDuplaC, arv, est);
                     }
                 }
 
@@ -71,8 +68,10 @@ void executarSistema() { //** Dentro dos parênteses terá as listas e funcionalid
                 centralizarTexto(Estetica::YELLOW + "TELA DE CADASTRO");
                 centralizarTexto(Estetica::RED + "Digite o Login: ");
                 cin >> login;
+                limparBufferEntrada();
                 centralizarTexto(Estetica::RED + "Digite a Senha: ");
                 cin >> senha;
+                limparBufferEntrada();
 
                 cadastrarUsuario(listaUsuarios, login, senha, COMUM);
 
@@ -96,6 +95,104 @@ void executarSistema() { //** Dentro dos parênteses terá as listas e funcionalid
                 break;
             }
         }
+    }
+}
+
+// 6. Função para perspectiva do administrador do sistema
+void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est) {
+    int opcao = 0;
+
+    while(opcao != 6) {
+        esteticaCabeçalhoSistema();
+        centralizarTexto(Estetica::YELLOW + "--- MENU ADMINISTRADOR ---");
+        centralizarTexto("1 - Cadastrar Título");
+        centralizarTexto("2 - Remover Título");
+        centralizarTexto("3 - Listar Conteúdos");
+        centralizarTexto("4 - Ver Estatísticas");
+        centralizarTexto("5 - Gerenciar Usuários");
+        centralizarTexto("6 - Voltar ao Menu Inicial");
+
+        centralizarTexto("\nEscolha uma opção: ");
+        cin >> opcao;
+        limparBufferEntrada();
+
+        switch(opcao) {
+            case 1:
+                esteticaCabeçalhoSistema();
+                centralizarTexto(Estetica::YELLOW + "CADASTRO DE NOVO TÍTULO" + Estetica::RESET);
+                Conteudo novo;
+
+                // Solicitação dos dados do novo título
+                centralizarTexto("Título: ");
+                getline(cin, novo.titulo);
+                centralizarTexto("Tipo: ");
+                getline(cin, novo.tipo);
+                centralizarTexto("Gênero: ");
+                getline(cin, novo.genero);
+                centralizarTexto("Ano: ");
+                cin >> novo.ano;
+                limparBufferEntrada();
+
+                admin.cadastrarTitulo(ListaDuplaC, ListaDuplaC, novo);
+                break;
+            case 2:
+                esteticaCabeçalhoSistema();
+                string titulo;
+                centralizarTexto("Digite o título para remover: ");
+                getline(cin, titulo);
+
+                admin.removerTitulo(ListaDuplaC, ListaDuplaC, ListaSimplesC, titulo);
+                break;
+            case 3:
+                listaCadastrados(ListaDuplaC);
+                break;
+            case 4:
+                tipoMaisRecomendado(est);
+                generoMaisRecomendado(est);
+                break;
+            case 5:
+                listarUsuarios(ListaU);
+                break;
+            case 6:
+                centralizarTexto("Voltando...");
+                break;
+            default:
+                centralizarTexto("Opção inválida!");
+                break;
+        }
+        system("pause");
+    }
+}
+
+// 7. Função para perspectiva do usuário comum
+void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est) {
+    int opcao = 0;
+
+    while(opcao != 3) {
+        esteticaCabeçalhoSistema();
+        centralizarTexto(Estetica::GREEN + "--- BEM-VINDO AO MEUFLIX ---");
+        centralizarTexto("1 - Iniciar Recomendação (Árvore)");
+        centralizarTexto("2 - Ver Ranking Mais Assistidos");
+        centralizarTexto("3 - Sair");
+
+        centralizarTexto("\nEscolha uma opção: ");
+        cin >> opcao;
+        limparBufferEntrada();
+
+        switch(opcao) {
+            case 1:
+                arv.inserirFiltrar(arv.raiz, ListaDuplaC, ListaSimplesC);
+                break;
+            case 2:
+                listaMaisAssistidos(ListaDuplaC);
+                break;
+            case 3:
+                break;
+            default:
+                centralizarTexto("Opção inválida!");
+                break;
+        }
+        system("pause");
     }
 }
 

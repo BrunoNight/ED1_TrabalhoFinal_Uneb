@@ -6,8 +6,8 @@
 #include <string>
 
 // 3. Declaração de classes e structs das bibliotecas criadas para evitar inclusão cíclica
-class ListaContCad;
-class ListaContRec;
+class ListaContCad; // CONSERTAR
+class ListaContRec; // CONSERTAR
 
 // 4. Classe do nó da árvore
 class NodoA { public:
@@ -26,7 +26,7 @@ class Arvore { public:
     void apagarArvore(NodoA *atual);
     void inserirPorCaminho(const std::string& caminho, const std::string& filtro, bool folha);
     void gerarArvoreDecisao();
-    void inserirFiltrar(NodoA* atual, ListaContCad& listaCad, ListaContRec& listaRec);
+    void inserirFiltrar(NodoA* atual, ListaContCad& listaCad, ListaContRec& listaRec); // CONSERTAR
 };
 
 #endif // ARVORE_H_INCLUDED

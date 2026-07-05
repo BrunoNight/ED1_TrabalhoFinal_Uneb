@@ -32,52 +32,27 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="admin.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="admin.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="arvore.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="arvore.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="conteudo.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="conteudo.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="estatisticas.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="estatisticas.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="listas.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="listas.cpp">
-					<Option target="&lt;{~None~}&gt;" />
-				</Unit>
+		<Unit filename="admin.cpp" />
+		<Unit filename="admin.h" />
+		<Unit filename="arvore.cpp" />
+		<Unit filename="arvore.h" />
+		<Unit filename="conteudo.cpp" />
+		<Unit filename="conteudo.h" />
+		<Unit filename="estatisticas.cpp" />
+		<Unit filename="estatisticas.h" />
+		<Unit filename="estetica.cpp" />
+		<Unit filename="estetica.h" />
+		<Unit filename="listas.cpp" />
+		<Unit filename="listas.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="pilha.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="usuario.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="usuario.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="persistencia.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="persistencia.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
+		<Unit filename="persistencia.cpp" />
+		<Unit filename="persistencia.h" />
+		<Unit filename="pilha.cpp" />
+		<Unit filename="pilha.h" />
+		<Unit filename="usuario.cpp" />
+		<Unit filename="usuario.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

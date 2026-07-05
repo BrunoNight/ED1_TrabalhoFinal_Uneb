@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <windows.h> // Necessário para getLarguraTerminal
+#include <regex> // Necessário para a limpeza das tags
 
 // 2. Inclusão de bibliotecas criadas
 #include "estetica.h"
@@ -19,18 +20,28 @@ int getLarguraTerminal() {
     return csbi.srWindow.Right - csbi.srWindow.Left + 1;
 }
 
+// 6. Função para obter o tamanho real, ignorando códigos ANSI
+size_t tamanhoReal(const string& texto) {
+// O modificador static garante que o objeto regex seja criado apenas na primeira chamada
+    static const regex ansi_regex("\033\\[[0-9;]*m");
+    string textoLimpo = regex_replace(texto, ansi_regex, "");
+    return textoLimpo.length();
+}
+
 // 6. Função para centralizar texto
 void centralizarTexto(const string& texto) {
-    int larguraTerminal = getLarguraTerminal();
-    int tamanhoTexto = static_cast<int>(texto.length());
-
+    int larguraTerminal = getLarguraTerminal(); // Sua função existente
+    int tamanhoTexto = static_cast<int>(tamanhoReal(texto));
     int espacos = (larguraTerminal - tamanhoTexto) / 2;
 
-    if (espacos < 0) espacos = 0; // Proteção para textos muito longos
+    if(espacos < 0) {
+        espacos = 0;
+    }
 
     for(int i = 0; i < espacos; i++) {
         cout << " ";
     }
+
     cout << texto << endl;
 }
 
@@ -47,4 +58,10 @@ void esteticaCabeçalhoSistema() {
     centralizarTexto(Estetica::RED + " (>  " + Estetica::YELLOW + "MEUFLIX" + Estetica::RED + "  |  SISTEMA DE STREAMING" + Estetica::RESET, largura);
     centralizarTexto(Estetica::RED + "+[" + bordaA + "]+" + Estetica::RESET, largura);
     cout << endl;
+}
+
+// 8. Função para limpar mensagens de erro por digitação inválida no cin
+void limparBufferEntrada() {
+    cin.clear();
+    cin.ignore(10000, '\n');
 }

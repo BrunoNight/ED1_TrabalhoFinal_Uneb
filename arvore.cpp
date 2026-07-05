@@ -1,3 +1,4 @@
+// CONSERTAR NOMENCLATURA DE LISTAS
 // 1. Inclusão de bibliotecas existentes
 #include <iostream>
 #include <string>
@@ -27,7 +28,7 @@ Arvore::~Arvore() {
 }
 
 // 7. Função de apagar a árvore para limpar memória após fechar sistema ou sair da árvore de recomendação
-void Arvore::apagarArvore(NodoA *atual) {
+void Arvore::apagarArvore(NodoA* atual) {
     if(atual != nullptr) {
         apagarArvore(atual -> sim);
         apagarArvore(atual -> nao);
@@ -130,7 +131,7 @@ void Arvore::inserirFiltrar(NodoA* atual, ListaContCad& listaCad, ListaContRec& 
             centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
             centralizarTexto(Estetica::RED + "1 - Sim");
             centralizarTexto(Estetica::RED + "2 - Não");
-            ccentralizarTexto(Estetica::RED + "Escolha uma opção (1 ou 2): ");
+            centralizarTexto(Estetica::RED + "Escolha uma opção (1 ou 2): ");
             cin >> opcao;
             limparBufferEntrada();
 
@@ -150,16 +151,118 @@ void Arvore::inserirFiltrar(NodoA* atual, ListaContCad& listaCad, ListaContRec& 
         }
     } else {
         centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
-        centralizarTexto(Estetica::RED + "  RECOMENDAÇÃO BASEADA NO SEU PERFIL: " << atual -> texto << endl;
+        centralizarTexto(Estetica::RED + "  RECOMENDAÇÃO BASEADA NO SEU PERFIL: " + atual -> texto);
         centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
 
+        // Limpa a lista de recomendações anterior para evitar lixo ou duplicações
+        listaRec.limpar();
 
+        // Ponteiro de varredura para percorrer o catálogo completo
+        NodoDuplo* nav = listaCad.getCabeca();
 
+        while(nav != nullptr) {
+            Conteudo& c = nav -> conteudo;
+            bool tipoBool = false;
+            bool generoBool = false;
+            bool anoBool = false;
 
+            // Filtragem por correspondência de palavras-chave baseada no nó folha
+            // Filtro de Tipo (Filme, Série, Documentário, Anime, Cartoon)
+            switch(atual -> tipoFiltro) {
+                case FILME:
+                    if(c.tipo == "Filme") {
+                        tipoBool = true;
+                    }
+                    break;
+                case SERIE:
+                    if(c.tipo == "Série") {
+                        tipoBool = true;
+                    }
+                    break;
+                case DOCUMENTARIO:
+                    if(c.tipo == "Documentário") {
+                        tipoBool = true;
+                    }
+                    break;
+                case ANIME:
+                    if(c.tipo == "Anime") {
+                        tipoBool = true;
+                    }
+                    break;
+                case CARTOON:
+                    if(c.tipo == "Cartoon") {
+                        tipoBool = true;
+                    }
+                    break;
+                case QUALQUER_TIPO:
+                    tipoBool = true;
+                    break;
+            }
 
+            // Filtro de Gênero (Ação, Comédia, Drama, Terror, Ficção Científica, Fantasia)
+            switch (atual -> generoFiltro) {
+                case ACAO:
+                    if(c.genero == "Ação") {
+                        generoBool = true;
+                    }
+                    break;
+                case COMEDIA:
+                    if(c.genero == "Comédia") {
+                        generoBool = true;
+                    }
+                    break;
+                case DRAMA:
+                    if(c.genero == "Drama") {
+                        generoBool = true;
+                    }
+                    break;
+                case TERROR:
+                    if(c.genero == "Terror") {
+                        generoBool = true;
+                    }
+                    break;
+                case FIC_CIENTIFICA:
+                    if(c.genero == "Ficção Científica") {
+                        generoBool = true;
+                    }
+                    break;
+                case FANTASIA:
+                    if(c.genero == "Fantasia") {
+                        generoBool = true;
+                    }
+                    break;
+                case QUALQUER_GENERO:
+                    generoBool = true;
+                    break;
+            }
 
+            // Filtro de Época / Ano (Recentes: >= 2000 vs Antigos: < 2000)
+            switch (atual -> cronologiaFiltro) {
+                case RECENTE:
+                    if(c.ano >= 2000) {
+                        anoBool = true;
+                    }
+                    break;
+                case ANTIGO:
+                    if(c.ano < 2000) {
+                        anoBool = true;
+                    }
+                    break;
+                case QUALQUER_ANO:
+                    anoBool = true;
+                    break;
+            }
 
+            // Se o conteúdo passar por todos os critérios de filtragem, ele é inserido à lista
+            if (tipoBool && generoBool && anoBool) {
+                listaRec.inserirOrdenado(c);
+            }
 
+            nav = nav -> proximo; // Avança para o próximo ponteiro do catálogo
+        }
+
+        // Exibe a listagem final de recomendações formatada para o usuário
+        listaRecomendados(listaRec);
     }
 }
 

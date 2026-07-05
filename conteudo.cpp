@@ -1,90 +1,95 @@
-#include "listas.h"
+// 1. Inclusão de bibliotecas existentes
 #include <iostream>
 #include <iomanip>
 
+// 2. Inclusão de bibliotecas criadas
+#include "listas.h"
+
+// 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
 
+// 4. Declaração para inicialização do ID de conteúdos
 static int proximoId = 1;
 
-void cadastrarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist,
-                        string titulo, string tipo, string genero, int ano) {
+// 5. Função para cadastrar conteúdo
+void cadastrarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string titulo, string tipo, string genero, int ano) {
     Conteudo c;
-    c.id         = proximoId++;   // id único e sequencial
-    c.titulo     = titulo;
-    c.tipo       = tipo;
-    c.genero     = genero;
-    c.ano        = ano;
-    c.numViews   = 0;
-    c.avaliacao  = 0.0f;          // padrão; atualizado pela árvore/admin
+    c.id = gerarNovoId(); // id único e sequencial // CONSERTADO
+    c.titulo = titulo;
+    c.tipo = tipo;
+    c.genero = genero;
+    c.ano = ano;
+    c.numViews = 0;
+    c.avaliacao = 0.0f;
 
     listaCad.inserirOrdenado(c);
     listaAssist.inserirOrdenado(c);
 
-    cout << "  [+] Cadastrado: \"" << titulo << "\"  (ID: " << c.id << ")\n";
+    centralizarTexto("  [+] Cadastrado: \"" + titulo + "\"  (ID: " + c.id + ")\n");
 }
 
-void removerConteudo(ListaDupla& listaCad, ListaDupla& listaAssist,
-                      ListaSimples& listaRec, string titulo) {
-    bool okCad    = listaCad.remover(titulo);
+// 6. Função para gerar novo ID
+int gerarNovoId() {
+    return proximoId++;
+}
+
+// 7. Função para remover conteúdo
+void removerConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, string titulo) {
+    bool okCad = listaCad.remover(titulo);
     bool okAssist = listaAssist.remover(titulo);
-    bool okRec    = listaRec.remover(titulo);
+    bool okRec = listaRec.remover(titulo);
 
     if (!okCad && !okAssist && !okRec) {
-        cout << "  [!] \"" << titulo << "\" nao encontrado em nenhuma lista.\n";
+        centralizarTexto("  [!] \"" + titulo + "\" não encontrado em nenhuma lista.\n");
     } else {
-        cout << "  [-] Removido: \"" << titulo << "\"";
-        if (!okRec) cout << "  (nao estava nos recomendados)";
-        cout << "\n";
+        centralizarTexto("  [-] Removido: \"" + titulo + "\"");
+        if(!okRec) centralizarTexto("  (não estava nos recomendados)");
+        centralizarTexto("\n");
     }
 }
 
+// 8. Função para listar conteúdos cadastrados
 void listaCadastrados(ListaDupla& listaCad) {
-    cout << "\n=== CATALOGO COMPLETO ===\n";
+    centralizarTexto("\n=== CATALOGO COMPLETO ===\n");
     if (listaCad.estaVazia()) {
-        cout << "  [Catalogo vazio]\n";
+        centralizarTexto("  [Catálogo vazio]\n");
         return;
     }
     listaCad.exibirFrente();
 }
 
+// 9. Função para listar conteúdos recomendados
 void listaRecomendados(ListaSimples& listaRec) {
-    cout << "\n=== TITULOS RECOMENDADOS ===\n";
+    centralizarTexto("\n=== TITULOS RECOMENDADOS ===\n");
     if (listaRec.estaVazia()) {
-        cout << "  [Sem recomendacoes para este perfil]\n";
+        centralizarTexto("  [Sem recomendações para este perfil]\n");
         return;
     }
     listaRec.exibir();
 }
 
-
+// 10. Função para listar conteúdos mais assistidos
 void listaMaisAssistidos(ListaDupla& listaAssist) {
-    cout << "\n=== RANKING: MAIS ASSISTIDOS ===\n";
+    centralizarTexto("\n=== RANKING: MAIS ASSISTIDOS ===\n");
     if (listaAssist.estaVazia()) {
-        cout << "  [Nenhuma visualizacao registrada]\n";
+        centralizarTexto("  [Nenhuma visualização registrada]\n");
         return;
     }
     listaAssist.exibirFrente();
 }
 
-
-void assistirConteudo(ListaDupla& listaCad, ListaDupla& listaAssist,
-                       string titulo) {
+// 11. Função para assistir conteúdos
+void assistirConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string titulo) {
     bool okCad    = listaCad.incrementarVisualizacoes(titulo);
     bool okAssist = listaAssist.incrementarVisualizacoes(titulo);
 
     if (!okCad || !okAssist) {
-        cout << "  [ERRO] \"" << titulo << "\" nao encontrado.\n";
+        centralizarTexto("  [ERRO] \"" + titulo + "\" não encontrado.\n");
         return;
     }
 
     NodoDuplo* no = listaCad.buscar(titulo);
     if (no) {
-        cout << "  >> Assistindo: \""
-             << titulo << "\"  |  Views totais: "
-             << no->conteudo.numViews << "\n";
+        centralizarTexto("  >> Assistindo: \"" + titulo + "\"  |  Views totais: " + to_string(no->conteudo.numViews) + "\n"); // AJUSTADO PARA CENTRALIZAÇÃO DE TEXTO
     }
-}
-
-int gerarNovoId() {
-    return proximoId++;
 }

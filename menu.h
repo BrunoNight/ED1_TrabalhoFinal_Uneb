@@ -14,13 +14,11 @@ class Arvore;
 struct Estatisticas;
 
 // 4. Funções que serão executadas no sistema
-// // 4.1. LIMPAR BUFFERS
-void limparBufferEntrada();
-// // 4.2. INICIALIZAR SISTEMA (TELA INICIAL), COM AS FUNÇÕES DE LOGIN E CADASTRO DE USUÁRIO
-void executarSistema(); //** Dentro dos parênteses terá as listas e funcionalidades de outras partes do sistema
-// // 4.3. NAVEGAÇÃO PELO SISTEMA NA PERSPECTIVA DO ADMINISTRADOR
-void povAdministrador(); //** Dentro dos parênteses terá as listas e funcionalidades de outras partes do sistema
-// // 4.4. NAVEGAÇÃO PELO SISTEMA NA PERSPECTIVA DO USUÁRIO COMUM
-void povUsuarioComum(); //** Dentro dos parênteses terá as listas e funcionalidades de outras partes do sistema
+// // 4.1. INICIALIZAR SISTEMA (TELA INICIAL), COM AS FUNÇÕES DE LOGIN E CADASTRO DE USUÁRIO
+void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est);
+// // 4.2. NAVEGAÇÃO PELO SISTEMA NA PERSPECTIVA DO ADMINISTRADOR
+void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est);
+// // 4.3. NAVEGAÇÃO PELO SISTEMA NA PERSPECTIVA DO USUÁRIO COMUM
+void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est);
 
 #endif // MENU_H_INCLUDED
