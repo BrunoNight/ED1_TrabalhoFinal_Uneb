@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="admin.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="admin.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="arvore.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
@@ -41,17 +47,35 @@
 		<Unit filename="conteudo.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="conteudo.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="estatisticas.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="lista.h">
+		<Unit filename="estatisticas.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="listas.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="listas.cpp">
+					<Option target="&lt;{~None~}&gt;" />
+				</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="pilha.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="usuario.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="usuario.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="persistencia.cpp">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="persistencia.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Extensions />
