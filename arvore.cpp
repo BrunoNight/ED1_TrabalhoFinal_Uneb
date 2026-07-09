@@ -1,4 +1,3 @@
-// CONSERTAR NOMENCLATURA DE LISTAS
 // 1. Inclusão de bibliotecas existentes
 #include <iostream>
 #include <string>
@@ -117,7 +116,8 @@ void Arvore::gerarArvoreDecisao() { // Abrir e reconhecer dados do arquivo txt p
     fclose(arquivo);
 }
 
-void Arvore::inserirFiltrar(NodoA* atual, ListaContCad& listaCad, ListaContRec& listaRec) {
+// 10. Função para inserção das perguntas e filtração dos resultados, assim como lista final de recomendação
+void Arvore::inserirFiltrar(NodoA* atual, ListaDupla& listaCad, ListaSimples& listaRec) {
     if(atual == nullptr) {
         centralizarTexto("\n[Aviso] Nó inválido alcançado ou árvore de decisão não gerada [Aviso]");
         return;
