@@ -1,24 +1,24 @@
-// 1. InicializaÁ„o da inclus„o do header
+// 1. Inicializa√ß√£o da inclus√£o do header
 #ifndef MENU_H_INCLUDED
 #define MENU_H_INCLUDED
 
 // 2. Incluir bibliotecas existentes
 #include <windows.h>
 
-// 3. DeclaraÁ„o de classes das bibliotecas criadas para evitar inclus„o cÌclica
+// 3. Declara√ß√£o de classes das bibliotecas criadas para evitar inclus√£o c√≠clica
 struct Usuario;
 class ListaUsuarios;
-class ListaSConteudos;
-class ListaDConteudos;
+class ListaSimples;
+class ListaDupla;
 class Arvore;
 struct Estatisticas;
 
-// 4. FunÁıes que ser„o executadas no sistema
-// // 4.1. INICIALIZAR SISTEMA (TELA INICIAL), COM AS FUN«’ES DE LOGIN E CADASTRO DE USU¡RIO
-void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est);
-// // 4.2. NAVEGA«√O PELO SISTEMA NA PERSPECTIVA DO ADMINISTRADOR
-void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est);
-// // 4.3. NAVEGA«√O PELO SISTEMA NA PERSPECTIVA DO USU¡RIO COMUM
-void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est);
+// 4. Fun√ß√µes que ser√£o executadas no sistema
+// // 4.1. INICIALIZAR SISTEMA (TELA INICIAL), COM AS FUN√á√ïES DE LOGIN E CADASTRO DE USU√ÅRIO
+void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est);
+// // 4.2. NAVEGA√á√ÉO PELO SISTEMA NA PERSPECTIVA DO ADMINISTRADOR
+void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est);
+// // 4.3. NAVEGA√á√ÉO PELO SISTEMA NA PERSPECTIVA DO USU√ÅRIO COMUM
+void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est);
 
 #endif // MENU_H_INCLUDED
