@@ -18,10 +18,11 @@ class NodoA { public:
     NodoA* sim; // Para a esquerda
     NodoA* nao; // Para a direita
     bool folha; // Identificar se é o última nível ou não
-    NodoA() : texto(""), sim(nullptr), nao(nullptr), folha(false) {} // Construtor para inicializar de forma segura os ponteiros sem risco de lixo de memória
     TipoConteudo tipoFiltro;
     GeneroConteudo generoFiltro;
     FiltroCronologico cronologiaFiltro;
+    // Construtor para inicializar de forma segura os ponteiros sem risco de lixo de memória
+    NodoA() : texto(""), sim(nullptr), nao(nullptr), folha(false), tipoFiltro(QUALQUER_TIPO), generoFiltro(QUALQUER_GENERO), cronologiaFiltro(QUALQUER_ANO) {}
 };
 
 // 6. Classe da árvore
