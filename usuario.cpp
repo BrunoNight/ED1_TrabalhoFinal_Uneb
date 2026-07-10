@@ -1,10 +1,11 @@
-// 1. Inclus„o de bibliotecas existentes
+// 1. Inclus√£o de bibliotecas existentes
 #include <iostream>
 #include <string>
 
-// 2. Inclus„o de bibliotecas criadas
+// 2. Inclus√£o de bibliotecas criadas
 #include "usuario.h"
 #include "estetica.h"
+#include "listas.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
@@ -13,7 +14,7 @@ using namespace std;
 static const string bordaA(50, '-');
 static const string bordaB(20, '=');
 
-// 5. FunÁ„o de login do usu·rio no sistema
+// 5. Fun√ß√£o de login do usu√°rio no sistema
 Usuario* logarUsuario(ListaUsuarios& listaUsuarios, string login, string senha) {
     Usuario* atual = listaUsuarios.inicio;
 
@@ -25,18 +26,18 @@ Usuario* logarUsuario(ListaUsuarios& listaUsuarios, string login, string senha) 
         atual = atual -> prox;
     }
 
-    return nullptr; // Retorna nulo se o usu·rio n„o for encontrado ou a senha for inv·lida
+    return nullptr; // Retorna nulo se o usu√°rio n√£o for encontrado ou a senha for inv√°lida
 }
 
-// 6. FunÁ„o de cadastro de usu·rio no sistema
+// 6. Fun√ß√£o de cadastro de usu√°rio no sistema
 void cadastrarUsuario(ListaUsuarios& listaUsuarios, string login, string senha, perfil tipo) {
     Usuario* atual = listaUsuarios.inicio;
     int novoId = 1;
 
-    // Varre a lista para impedir duplicaÁ„o de logins e buscar novo ID
+    // Varre a lista para impedir duplica√ß√£o de logins e buscar novo ID
     while(atual != nullptr) {
         if(atual -> login == login) {
-            centralizarTexto("\n[Aviso] O login informado j· est· em uso! [Aviso]");
+            centralizarTexto("\n[Aviso] O login informado j√° est√° em uso! [Aviso]");
             return;
         }
         if(atual -> id >= novoId) {
@@ -45,7 +46,7 @@ void cadastrarUsuario(ListaUsuarios& listaUsuarios, string login, string senha, 
         atual = atual -> prox;
     }
 
-    // AlocaÁ„o do novo nÛ (usu·rio)
+    // Aloca√ß√£o do novo n√≥ (usu√°rio)
     Usuario* novoUsuario = new Usuario;
     novoUsuario -> id = novoId;
     novoUsuario -> login = login;
@@ -53,7 +54,7 @@ void cadastrarUsuario(ListaUsuarios& listaUsuarios, string login, string senha, 
     novoUsuario -> tipo = tipo;
     novoUsuario -> prox = nullptr;
 
-    // InserÁ„o do nÛ no final da lista
+    // Inser√ß√£o do n√≥ no final da lista
     if(listaUsuarios.inicio == nullptr) {
         listaUsuarios.inicio = novoUsuario;
     } else {
@@ -65,20 +66,20 @@ void cadastrarUsuario(ListaUsuarios& listaUsuarios, string login, string senha, 
     }
 }
 
-// 7. FunÁ„o para alteraÁ„o do login
+// 7. Fun√ß√£o para altera√ß√£o do login
 void alterarLogin(ListaUsuarios& listaUsuarios, string login, string nvLogin) {
     Usuario* atual = listaUsuarios.inicio;
 
-    // Verificar se o novo login desejado ainda n„o est· sendo usado por outra pessoa
+    // Verificar se o novo login desejado ainda n√£o est√° sendo usado por outra pessoa
     while(atual != nullptr) {
         if(atual -> login == nvLogin) {
-            centralizarTexto("\n[Aviso] O novo login '" << nvLogin << "' j· est· sendo usado! [Aviso]");
+            centralizarTexto("\n[Aviso] O novo login '" << nvLogin << "' j√° est√° sendo usado! [Aviso]");
             return;
         }
         atual = atual -> prox;
     }
 
-    // Varredura para encontrar o usu·rio autenticado e efetuar a troca de login
+    // Varredura para encontrar o usu√°rio autenticado e efetuar a troca de login
     atual = listaUsuarios.inicio;
     while(atual != nullptr) {
         if(atual -> login == login) {
@@ -89,11 +90,11 @@ void alterarLogin(ListaUsuarios& listaUsuarios, string login, string nvLogin) {
     }
 }
 
-// 8. FunÁ„o para alteraÁ„o da senha
+// 8. Fun√ß√£o para altera√ß√£o da senha
 void alterarSenha(ListaUsuarios& listaUsuarios, string login, string nvSenha) {
     Usuario* atual = listaUsuarios.inicio;
 
-    // Varredura para encontrar o usu·rio e efetuar a troca de senha
+    // Varredura para encontrar o usu√°rio e efetuar a troca de senha
     while(atual != nullptr) {
         if (atual -> login == login) {
             atual -> senha = nvSenha;
@@ -103,37 +104,36 @@ void alterarSenha(ListaUsuarios& listaUsuarios, string login, string nvSenha) {
     }
 }
 
-// 8. FunÁ„o para listar usu·rios do sistema
+// 8. Fun√ß√£o para listar usu√°rios do sistema
 void listarUsuarios(ListaUsuarios& listaUsuarios) {
     Usuario* atual = listaUsuarios.inicio;
 
     if(atual == nullptr) {
-        centralizarTexto("\n[Aviso] Nenhum usu·rio cadastrado no sistema. [Aviso]");
+        centralizarTexto("\n[Aviso] Nenhum usu√°rio cadastrado no sistema. [Aviso]");
         return;
     }
 
-    // Percorre a lista, imprimindo as informaÁıes
+    // Percorre a lista, imprimindo as informa√ß√µes
     while(atual != nullptr) {
         cout << Estetica::RED << "ID: " << atual -> id << " | Login: " << atual -> login << " | Perfil: " << (atual -> tipo == ADMINISTRADOR ? "Administrador" : "Comum") << endl;
         atual = atual -> prox;
     }
 }
 
-// 8. FunÁ„o para excluir usu·rio do sistema
+// 8. Fun√ß√£o para excluir usu√°rio do sistema
 void excluirUsuario(ListaUsuarios& listaUsuarios, string login) {
     Usuario* atual = listaUsuarios.inicio;
     Usuario* anterior = nullptr;
 
-    // Varredura para encontrar o nÛ a ser removido e mantendo o anterior logo atr·s enquanto n„o encontra
+    // Varredura para encontrar o n√≥ a ser removido e mantendo o anterior logo atr√°s enquanto n√£o encontra
     while(atual != nullptr) {
         if (atual -> login == login) {
-            // Deslocamento de ponteiros para desconectar o nÛ da lista
+            // Deslocamento de ponteiros para desconectar o n√≥ da lista
             if(anterior == nullptr) {
                 listaUsuarios.inicio = atual -> prox;
             } else {
                 anterior -> prox = atual -> prox;
             }
-
             delete atual;
             return;
         }

@@ -1,18 +1,19 @@
-// 1. InicializaÁ„o da inclus„o do header
+// 1. Inicializa√ß√£o da inclus√£o do header
 #ifndef LISTAS_H_INCLUDED
 #define LISTAS_H_INCLUDED
 
-// 2. Inclus„o de bibliotecas existentes
+// 2. Inclus√£o de bibliotecas existentes
 #include <string>
 #include <iostream>
 
-// 3. Inclus„o de bibliotecas criadas
+// 3. Inclus√£o de bibliotecas criadas
 #include "conteudo.h"
+#include "usuario.h"
 
 // 4. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace::std;
 
-// 5. Classe do nÛ da lista simples
+// 5. Classe do n√≥ da lista simples
 class NodoSimples {
     public:
     	Conteudo conteudo;
@@ -24,7 +25,7 @@ class NodoSimples {
     	}
 };
 
-// 6. Classe do nÛ da lista dupla
+// 6. Classe do n√≥ da lista dupla
 class NodoDuplo {
 	public:
 	    Conteudo conteudo;
@@ -89,6 +90,20 @@ class ListaDupla {
 	    void inserirNo(NodoDuplo* no);
 
 	    void reposicionar(NodoDuplo* no);
+};
+
+// 9. Classe da lista de usu√°rios do sistema
+class ListaUsuarios { public:
+    Usuario* inicio;
+    ListaUsuarios() : inicio(nullptr) {}
+    ~ListaUsuarios() {
+        Usuario* atual = inicio;
+        while (atual != nullptr) {
+            Usuario* temp = atual;
+            atual = atual->prox;
+            delete temp;
+        }
+    }
 };
 
 #endif // LISTAS_H_INCLUDED

@@ -1,26 +1,27 @@
-// 1. InicializaÁ„o da inclus„o do header
+// 1. Inicializa√ß√£o da inclus√£o do header
 #ifndef USUARIO_H_INCLUDED
 #define USUARIO_H_INCLUDED
 
-// 2. Inclus„o de bibliotecas existentes
+// 2. Inclus√£o de bibliotecas existentes
 #include <iostream>
 #include <string>
 
-// 3. DeclaraÁ„o de classes das bibliotecas criadas para evitar inclus„o cÌclica
+// 3. Declara√ß√£o de classes das bibliotecas criadas para evitar inclus√£o c√≠clica
 class ListaUsuarios;
 
-// 4. DefiniÁ„o dos tipos de perfis de usu·rio
+// 4. Defini√ß√£o dos tipos de perfis de usu√°rio
 enum perfil {ADMINISTRADOR, COMUM};
 
-// 5. Struct para definir usuario
-typedef struct Usuario {
+// 5. Classe para definir usuario
+class Usuario { public:
     int id;
     std::string login;
     std::string senha;
     perfil tipo;
-} Usuario;
+    Usuario* prox;
+};
 
-// 6. FunÁıes que ser„o executadas no sistema
+// 6. Fun√ß√µes que ser√£o executadas no sistema
 // // 6.1. ADMINISTRADOR E COMUM
 Usuario* logarUsuario(ListaUsuarios& listaUsuarios, const std::string login, const std::string senha);
 void cadastrarUsuario(ListaUsuarios& listaUsuarios, const std::string login, const std::string senha, perfil tipo);
