@@ -6,6 +6,8 @@
 #include "menu.h"
 #include "estetica.h"
 #include "admin.h"
+#include "estatisticas.h"
+#include "usuario.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
@@ -19,7 +21,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
     int opcao = 0;
 
     while(opcao != 3) {
-        esteticaCabeçalhoSistema();
+        esteticaCabecalhoSistema();
         centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
         centralizarTexto(Estetica::RED + "1 - Fazer Login");
         centralizarTexto(Estetica::RED + "2 - Cadastre-se");
@@ -32,7 +34,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
 
         switch(opcao) {
             case 1: {
-                esteticaCabeçalhoSistema();
+                esteticaCabecalhoSistema();
                 string login, senha;
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
                 centralizarTexto(Estetica::YELLOW + "TELA DE LOGIN");
@@ -62,7 +64,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
                 break;
             }
             case 2: {
-                esteticaCabeçalhoSistema();
+                esteticaCabecalhoSistema();
                 string login, senha;
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
                 centralizarTexto(Estetica::YELLOW + "TELA DE CADASTRO");
@@ -133,7 +135,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
                 cin >> novo.ano;
                 limparBufferEntrada();
 
-                admin.cadastrarTitulo(ListaDuplaC, ListaDuplaC, novo);
+                admin.cadastrarTitulo(listaCad, listaAssist, novo);
                 break;
             case 2:
                 esteticaCabeçalhoSistema();
@@ -141,10 +143,10 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
                 centralizarTexto("Digite o título para remover: ");
                 getline(cin, titulo);
 
-                admin.removerTitulo(ListaDuplaC, ListaDuplaC, ListaSimplesC, titulo);
+                admin.removerTitulo(listaCad, listaAssist, listaRec, titulo);
                 break;
             case 3:
-                listaCadastrados(ListaDuplaC);
+                listaCadastrados(listaCad);
                 break;
             case 4:
                 tipoMaisRecomendado(est);
