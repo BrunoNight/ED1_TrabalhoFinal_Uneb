@@ -119,7 +119,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
         limparBufferEntrada();
 
         switch(opcao) {
-            case 1:
+            case 1: {
                 esteticaCabecalhoSistema();
                 centralizarTexto(Estetica::YELLOW + "CADASTRO DE NOVO TÍTULO" + Estetica::RESET);
                 Conteudo novo;
@@ -137,7 +137,8 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
 
                 admin.cadastrarTitulo(listaCad, listaAssist, novo);
                 break;
-            case 2:
+            }
+            case 2: {
                 esteticaCabecalhoSistema();
                 string titulo;
                 centralizarTexto("Digite o título para remover: ");
@@ -145,22 +146,28 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
 
                 admin.removerTitulo(listaCad, listaAssist, listaRec, titulo);
                 break;
-            case 3:
+            }
+            case 3: {
                 listaCadastrados(listaCad);
                 break;
-            case 4:
+            }
+            case 4: {
                 tipoMaisRecomendado(est);
                 generoMaisRecomendado(est);
                 break;
-            case 5:
+            }
+            case 5: {
                 listarUsuarios(ListaU);
                 break;
-            case 6:
+            }
+            case 6: {
                 centralizarTexto("Voltando...");
                 break;
-            default:
+            }
+            default: {
                 centralizarTexto("Opção inválida!");
                 break;
+            }
         }
         system("pause");
     }
@@ -182,17 +189,21 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
         limparBufferEntrada();
 
         switch(opcao) {
-            case 1:
+            case 1: {
                 arv.inserirFiltrar(arv.raiz, listaCad, listaRec);
                 break;
-            case 2:
+            }
+            case 2: {
                 listaMaisAssistidos(ListaDuplaC);
                 break;
-            case 3:
+            }
+            case 3: {
                 break;
-            default:
+            }
+            default: {
                 centralizarTexto("Opção inválida!");
                 break;
+            }
         }
         system("pause");
     }
