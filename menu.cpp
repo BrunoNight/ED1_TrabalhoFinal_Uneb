@@ -1,8 +1,8 @@
-// 1. Inclus„o de bibliotecas existentes
+// 1. Inclus√£o de bibliotecas existentes
 #include <iostream>
 #include <string>
 
-// 2. Inclus„o de bibliotecas criadas
+// 2. Inclus√£o de bibliotecas criadas
 #include "menu.h"
 #include "estetica.h"
 #include "admin.h"
@@ -14,17 +14,17 @@ using namespace std;
 static const string bordaA(50, '-');
 static const string bordaB(20, '=');
 
-// 5. FunÁ„o para exibiÁ„o e funcionamento do menu inicial do sistema
-void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est) {
+// 5. Fun√ß√£o para exibi√ß√£o e funcionamento do menu inicial do sistema
+void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est) {
     int opcao = 0;
 
     while(opcao != 3) {
-        esteticaCabeÁalhoSistema();
+        esteticaCabe√ßalhoSistema();
         centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
         centralizarTexto(Estetica::RED + "1 - Fazer Login");
         centralizarTexto(Estetica::RED + "2 - Cadastre-se");
         centralizarTexto(Estetica::RED + "3 - Sair do Sistema");
-        centralizarTexto(Estetica::RED + "Escolha uma opÁ„o: ");
+        centralizarTexto(Estetica::RED + "Escolha uma op√ß√£o: ");
         cin >> opcao;
         limparBufferEntrada();
         cout << endl;
@@ -32,7 +32,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, List
 
         switch(opcao) {
             case 1: {
-                esteticaCabeÁalhoSistema();
+                esteticaCabe√ßalhoSistema();
                 string login, senha;
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
                 centralizarTexto(Estetica::YELLOW + "TELA DE LOGIN");
@@ -43,15 +43,15 @@ void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, List
                 cin >> senha;
                 limparBufferEntrada();
 
-                // Busca o usu·rio na lista de usu·rios cadastrados
+                // Busca o usu√°rio na lista de usu√°rios cadastrados
                 Usuario* usuarioLogado = logarUsuario(ListaU, login, senha);
 
                 if(usuarioLogado == nullptr) {
-                    centralizarTexto("\n[Aviso] Credenciais incorretas ou usu·rio inexistente! [Aviso]");
+                    centralizarTexto("\n[Aviso] Credenciais incorretas ou usu√°rio inexistente! [Aviso]");
                 } else {
                     centralizarTexto("\n[Sucesso] Bem-vindo(a), " + usuarioLogado -> login + "! [Sucesso]");
 
-                    // Redireciona conforme o nÌvel de permiss„o
+                    // Redireciona conforme o n√≠vel de permiss√£o
                     if(usuarioLogado -> tipo == ADMINISTRADOR) {
                         povAdministrador(usuarioLogado, ListaU, ListaSimplesC, ListaDuplaC, arv, est);
                     } else {
@@ -62,7 +62,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, List
                 break;
             }
             case 2: {
-                esteticaCabeÁalhoSistema();
+                esteticaCabe√ßalhoSistema();
                 string login, senha;
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
                 centralizarTexto(Estetica::YELLOW + "TELA DE CADASTRO");
@@ -80,7 +80,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, List
                 break;
             }
             case 3: {
-                esteticaCabeÁalhoSistema();
+                esteticaCabe√ßalhoSistema();
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
                 centralizarTexto("\n[Saindo] Saindo do sistema... [Saindo]");
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
@@ -89,7 +89,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, List
             }
             default: {
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
-                centralizarTexto("\n[Aviso] OpÁ„o inv·lida! Tente novamente! [Aviso]");
+                centralizarTexto("\n[Aviso] Op√ß√£o inv√°lida! Tente novamente! [Aviso]");
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
 
                 break;
@@ -98,36 +98,36 @@ void executarSistema(ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, List
     }
 }
 
-// 6. FunÁ„o para perspectiva do administrador do sistema
-void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est) {
+// 6. Fun√ß√£o para perspectiva do administrador do sistema
+void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est) {
     int opcao = 0;
 
     while(opcao != 6) {
-        esteticaCabeÁalhoSistema();
+        esteticaCabe√ßalhoSistema();
         centralizarTexto(Estetica::YELLOW + "--- MENU ADMINISTRADOR ---");
-        centralizarTexto("1 - Cadastrar TÌtulo");
-        centralizarTexto("2 - Remover TÌtulo");
-        centralizarTexto("3 - Listar Conte˙dos");
-        centralizarTexto("4 - Ver EstatÌsticas");
-        centralizarTexto("5 - Gerenciar Usu·rios");
+        centralizarTexto("1 - Cadastrar T√≠tulo");
+        centralizarTexto("2 - Remover T√≠tulo");
+        centralizarTexto("3 - Listar Conte√∫dos");
+        centralizarTexto("4 - Ver Estat√≠sticas");
+        centralizarTexto("5 - Gerenciar Usu√°rios");
         centralizarTexto("6 - Voltar ao Menu Inicial");
 
-        centralizarTexto("\nEscolha uma opÁ„o: ");
+        centralizarTexto("\nEscolha uma op√ß√£o: ");
         cin >> opcao;
         limparBufferEntrada();
 
         switch(opcao) {
             case 1:
-                esteticaCabeÁalhoSistema();
-                centralizarTexto(Estetica::YELLOW + "CADASTRO DE NOVO TÕTULO" + Estetica::RESET);
+                esteticaCabe√ßalhoSistema();
+                centralizarTexto(Estetica::YELLOW + "CADASTRO DE NOVO T√çTULO" + Estetica::RESET);
                 Conteudo novo;
 
-                // SolicitaÁ„o dos dados do novo tÌtulo
-                centralizarTexto("TÌtulo: ");
+                // Solicita√ß√£o dos dados do novo t√≠tulo
+                centralizarTexto("T√≠tulo: ");
                 getline(cin, novo.titulo);
                 centralizarTexto("Tipo: ");
                 getline(cin, novo.tipo);
-                centralizarTexto("GÍnero: ");
+                centralizarTexto("G√™nero: ");
                 getline(cin, novo.genero);
                 centralizarTexto("Ano: ");
                 cin >> novo.ano;
@@ -136,9 +136,9 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConte
                 admin.cadastrarTitulo(ListaDuplaC, ListaDuplaC, novo);
                 break;
             case 2:
-                esteticaCabeÁalhoSistema();
+                esteticaCabe√ßalhoSistema();
                 string titulo;
-                centralizarTexto("Digite o tÌtulo para remover: ");
+                centralizarTexto("Digite o t√≠tulo para remover: ");
                 getline(cin, titulo);
 
                 admin.removerTitulo(ListaDuplaC, ListaDuplaC, ListaSimplesC, titulo);
@@ -157,31 +157,31 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConte
                 centralizarTexto("Voltando...");
                 break;
             default:
-                centralizarTexto("OpÁ„o inv·lida!");
+                centralizarTexto("Op√ß√£o inv√°lida!");
                 break;
         }
         system("pause");
     }
 }
 
-// 7. FunÁ„o para perspectiva do usu·rio comum
-void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteudos& ListaSimplesC, ListaDConteudos& ListaDuplaC, Arvore& arv, Estatisticas& est) {
+// 7. Fun√ß√£o para perspectiva do usu√°rio comum
+void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est) {
     int opcao = 0;
 
     while(opcao != 3) {
-        esteticaCabeÁalhoSistema();
+        esteticaCabe√ßalhoSistema();
         centralizarTexto(Estetica::GREEN + "--- BEM-VINDO AO MEUFLIX ---");
-        centralizarTexto("1 - Iniciar RecomendaÁ„o (¡rvore)");
+        centralizarTexto("1 - Iniciar Recomenda√ß√£o (√Årvore)");
         centralizarTexto("2 - Ver Ranking Mais Assistidos");
         centralizarTexto("3 - Sair");
 
-        centralizarTexto("\nEscolha uma opÁ„o: ");
+        centralizarTexto("\nEscolha uma op√ß√£o: ");
         cin >> opcao;
         limparBufferEntrada();
 
         switch(opcao) {
             case 1:
-                arv.inserirFiltrar(arv.raiz, ListaDuplaC, ListaSimplesC);
+                arv.inserirFiltrar(arv.raiz, listaCad, listaRec);
                 break;
             case 2:
                 listaMaisAssistidos(ListaDuplaC);
@@ -189,7 +189,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaSConteu
             case 3:
                 break;
             default:
-                centralizarTexto("OpÁ„o inv·lida!");
+                centralizarTexto("Op√ß√£o inv√°lida!");
                 break;
         }
         system("pause");
