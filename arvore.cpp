@@ -8,6 +8,7 @@
 #include "arvore.h"
 #include "menu.h"
 #include "estetica.h"
+#include "listas.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;

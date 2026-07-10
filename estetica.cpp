@@ -63,5 +63,5 @@ void esteticaCabecalhoSistema() {
 // 8. Função para limpar mensagens de erro por digitação inválida no cin
 void limparBufferEntrada() {
     cin.clear();
-    cin.ignore(256, '\n');
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }

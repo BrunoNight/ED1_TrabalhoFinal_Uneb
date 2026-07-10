@@ -6,6 +6,8 @@
 #include "menu.h"
 #include "estetica.h"
 #include "admin.h"
+#include "estatisticas.h"
+#include "usuario.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
@@ -19,7 +21,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
     int opcao = 0;
 
     while(opcao != 3) {
-        esteticaCabeçalhoSistema();
+        esteticaCabecalhoSistema();
         centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
         centralizarTexto(Estetica::RED + "1 - Fazer Login");
         centralizarTexto(Estetica::RED + "2 - Cadastre-se");
@@ -32,7 +34,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
 
         switch(opcao) {
             case 1: {
-                esteticaCabeçalhoSistema();
+                esteticaCabecalhoSistema();
                 string login, senha;
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
                 centralizarTexto(Estetica::YELLOW + "TELA DE LOGIN");
@@ -62,7 +64,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
                 break;
             }
             case 2: {
-                esteticaCabeçalhoSistema();
+                esteticaCabecalhoSistema();
                 string login, senha;
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
                 centralizarTexto(Estetica::YELLOW + "TELA DE CADASTRO");
@@ -80,7 +82,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
                 break;
             }
             case 3: {
-                esteticaCabeçalhoSistema();
+                esteticaCabecalhoSistema();
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
                 centralizarTexto("\n[Saindo] Saindo do sistema... [Saindo]");
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
@@ -103,7 +105,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
     int opcao = 0;
 
     while(opcao != 6) {
-        esteticaCabeçalhoSistema();
+        esteticaCabecalhoSistema();
         centralizarTexto(Estetica::YELLOW + "--- MENU ADMINISTRADOR ---");
         centralizarTexto("1 - Cadastrar Título");
         centralizarTexto("2 - Remover Título");
@@ -117,8 +119,8 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
         limparBufferEntrada();
 
         switch(opcao) {
-            case 1:
-                esteticaCabeçalhoSistema();
+            case 1: {
+                esteticaCabecalhoSistema();
                 centralizarTexto(Estetica::YELLOW + "CADASTRO DE NOVO TÍTULO" + Estetica::RESET);
                 Conteudo novo;
 
@@ -133,32 +135,39 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
                 cin >> novo.ano;
                 limparBufferEntrada();
 
-                admin.cadastrarTitulo(ListaDuplaC, ListaDuplaC, novo);
+                admin.cadastrarTitulo(listaCad, listaAssist, novo);
                 break;
-            case 2:
-                esteticaCabeçalhoSistema();
+            }
+            case 2: {
+                esteticaCabecalhoSistema();
                 string titulo;
                 centralizarTexto("Digite o título para remover: ");
                 getline(cin, titulo);
 
-                admin.removerTitulo(ListaDuplaC, ListaDuplaC, ListaSimplesC, titulo);
+                admin.removerTitulo(listaCad, listaAssist, listaRec, titulo);
                 break;
-            case 3:
-                listaCadastrados(ListaDuplaC);
+            }
+            case 3: {
+                listaCadastrados(listaCad);
                 break;
-            case 4:
+            }
+            case 4: {
                 tipoMaisRecomendado(est);
                 generoMaisRecomendado(est);
                 break;
-            case 5:
+            }
+            case 5: {
                 listarUsuarios(ListaU);
                 break;
-            case 6:
+            }
+            case 6: {
                 centralizarTexto("Voltando...");
                 break;
-            default:
+            }
+            default: {
                 centralizarTexto("Opção inválida!");
                 break;
+            }
         }
         system("pause");
     }
@@ -169,7 +178,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
     int opcao = 0;
 
     while(opcao != 3) {
-        esteticaCabeçalhoSistema();
+        esteticaCabecalhoSistema();
         centralizarTexto(Estetica::GREEN + "--- BEM-VINDO AO MEUFLIX ---");
         centralizarTexto("1 - Iniciar Recomendação (Árvore)");
         centralizarTexto("2 - Ver Ranking Mais Assistidos");
@@ -180,17 +189,21 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
         limparBufferEntrada();
 
         switch(opcao) {
-            case 1:
+            case 1: {
                 arv.inserirFiltrar(arv.raiz, listaCad, listaRec);
                 break;
-            case 2:
+            }
+            case 2: {
                 listaMaisAssistidos(ListaDuplaC);
                 break;
-            case 3:
+            }
+            case 3: {
                 break;
-            default:
+            }
+            default: {
                 centralizarTexto("Opção inválida!");
                 break;
+            }
         }
         system("pause");
     }
