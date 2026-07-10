@@ -82,7 +82,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
                 break;
             }
             case 3: {
-                esteticaCabeçalhoSistema();
+                esteticaCabecalhoSistema();
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
                 centralizarTexto("\n[Saindo] Saindo do sistema... [Saindo]");
                 centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
@@ -105,7 +105,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
     int opcao = 0;
 
     while(opcao != 6) {
-        esteticaCabeçalhoSistema();
+        esteticaCabecalhoSistema();
         centralizarTexto(Estetica::YELLOW + "--- MENU ADMINISTRADOR ---");
         centralizarTexto("1 - Cadastrar Título");
         centralizarTexto("2 - Remover Título");
@@ -120,7 +120,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
 
         switch(opcao) {
             case 1:
-                esteticaCabeçalhoSistema();
+                esteticaCabecalhoSistema();
                 centralizarTexto(Estetica::YELLOW + "CADASTRO DE NOVO TÍTULO" + Estetica::RESET);
                 Conteudo novo;
 
@@ -138,7 +138,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
                 admin.cadastrarTitulo(listaCad, listaAssist, novo);
                 break;
             case 2:
-                esteticaCabeçalhoSistema();
+                esteticaCabecalhoSistema();
                 string titulo;
                 centralizarTexto("Digite o título para remover: ");
                 getline(cin, titulo);
@@ -171,7 +171,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
     int opcao = 0;
 
     while(opcao != 3) {
-        esteticaCabeçalhoSistema();
+        esteticaCabecalhoSistema();
         centralizarTexto(Estetica::GREEN + "--- BEM-VINDO AO MEUFLIX ---");
         centralizarTexto("1 - Iniciar Recomendação (Árvore)");
         centralizarTexto("2 - Ver Ranking Mais Assistidos");
