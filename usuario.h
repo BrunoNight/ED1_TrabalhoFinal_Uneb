@@ -13,13 +13,13 @@ class ListaUsuarios;
 enum perfil {ADMINISTRADOR, COMUM};
 
 // 5. Classe para definir usuario
-class Usuario {
+class Usuario { public:
     int id;
     std::string login;
     std::string senha;
     perfil tipo;
     Usuario* prox;
-} Usuario;
+};
 
 // 6. Funções que serão executadas no sistema
 // // 6.1. ADMINISTRADOR E COMUM
