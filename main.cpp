@@ -1,36 +1,41 @@
-// 1. Inclus„o de bibliotecas existentes
+// 1. Inclus√£o de bibliotecas existentes
 #include <iostream>
 
-// 2. Inclus„o de bibliotecas criadas
+// 2. Inclus√£o de bibliotecas criadas
 #include "listas.h"
 #include "arvore.h"
 #include "estatisticas.h"
 #include "menu.h"
+#include "persistencia.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
 
-// 4. ExecuÁ„o do main
+// 4. Execu√ß√£o do main
 int main() {
-    // 4.1. InstanciaÁ„o das Estruturas de Dados do Sistema
-    ListaUsuarios listaUsuarios;  // Lista Simples de usu·rios (usuario.h / usuario.cpp)
-    ListaDupla listaCad;          // Cat·logo Geral de Conte˙dos (Mais Assistidos / Ordem de Views)
-    ListaDupla listaAssist;       // CÛpia para OrdenaÁ„o Paralela / Ranking
-    ListaSimples listaRec;        // Lista Simples Ordenada por AvaliaÁ„o (Para recomendaÁıes da ¡rvore)
-    Arvore arvoreDecisao;         // ¡rvore Bin·ria de Decis„o
-    Estatisticas est;             // Bloco de contadores estatÌsticos
+    // 4.1. Instancia√ß√£o das Estruturas de Dados do Sistema
+    ListaUsuarios listaUsuarios;  // Lista Simples de usu√°rios (usuario.h / usuario.cpp)
+    ListaDupla listaCad;          // Cat√°logo Geral de Conte√∫dos (Mais Assistidos / Ordem de Views)
+    ListaDupla listaAssist;       // C√≥pia para Ordena√ß√£o Paralela / Ranking
+    ListaSimples listaRec;        // Lista Simples Ordenada por Avalia√ß√£o (Para recomenda√ß√µes da √Årvore)
+    Arvore arvoreDecisao;         // √Årvore Bin√°ria de Decis√£o
+    Estatisticas est;             // Bloco de contadores estat√≠sticos
 
-    // 4.2. PrÈ-carregamento de Dados (Garante PersistÍncia)
-    // Inicializa a ·rvore a partir do arquivo de texto txt
+    // 4.2. Pr√©-carregamento de Dados (Garante Persist√™ncia)
+    // Inicializa a √°rvore a partir do arquivo de texto txt
     arvoreDecisao.gerarArvoreDecisao();
-    // Cadastrar um Administrador padr„o
+    // Carrega o cat√°logo, o ranking e as estat√≠sticas
+    carregarTudo(listaCad, listaAssist, est);
+    // Cadastrar um Administrador padr√£o
     cadastrarUsuario(listaUsuarios, "admin", "uneb123", ADMINISTRADOR);
-    // Cadastrar um Utilizador Comum padr„o
+    // Cadastrar um Utilizador Comum padr√£o
     cadastrarUsuario(listaUsuarios, "bruno", "1234", COMUM);
 
     // 4.3. Disparar o Loop Principal do Sistema
     // Passar todas as estruturas essenciais
     executarSistema(listaUsuarios, listaCad, listaAssist, listaRec, arvoreDecisao, est);
+    // Salva o estado atual do cat√°logo, ranking e estat√≠sticas ao encerrar o sistema
+    salvarTudo(listaCad, listaAssist, est);
 
     return 0;
 }
