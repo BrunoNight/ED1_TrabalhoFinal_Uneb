@@ -115,7 +115,6 @@ void ListaSimples::exibir(){
                   + to_string(c.ano)
                   + to_string(c.avaliacao) + "\n");
         atual = atual->proximo;
-        atual = atual->proximo;
     }
 }
 
