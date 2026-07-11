@@ -1,7 +1,15 @@
 // 1. Inclusão de bibliotecas existentes
 #include <iostream>
+#include <limits>
 #include <string>
-#include <windows.h> // Necessário para getLarguraTerminal
+
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <sys/ioctl.h>
+    #include <unistd.h>
+#endif
+
 #include <regex> // Necessário para a limpeza das tags
 
 // 2. Inclusão de bibliotecas criadas
@@ -15,9 +23,17 @@ static const string bordaA(50, '-');
 
 // 5. Função para pegar largura do terminal para centralizar texto
 int getLarguraTerminal() {
+#ifdef _WIN32
+    // Código para Windows
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
     return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+#else
+    // Código para Linux / POSIX
+    struct winsize w;
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    return w.ws_col;
+#endif
 }
 
 // 6. Função para obter o tamanho real, ignorando códigos ANSI
@@ -48,7 +64,7 @@ void centralizarTexto(const string& texto) {
 // 7. Função para gerar o cabeçalho com o nome do sistema durante seu funcionamento
 void esteticaCabecalhoSistema() {
     // Limpa a tela do terminal a cada transição
-    system("cls");
+    system("cls || clear");
 
     int largura = getLarguraTerminal();
 

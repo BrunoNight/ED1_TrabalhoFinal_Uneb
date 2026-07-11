@@ -80,6 +80,8 @@ class ListaDupla {
 	    bool estaVazia();
 	    void limpar();
 
+		NodoDuplo* getCabeca();
+
 	private:
 	    NodoDuplo* cabeca;
 	    NodoDuplo* cauda;

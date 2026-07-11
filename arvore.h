@@ -13,27 +13,29 @@ class ListaDupla;
 class ListaSimples;
 
 // 5. Classe do nó da árvore
-class NodoA { public:
-    std::string texto;
-    NodoA* sim; // Para a esquerda
-    NodoA* nao; // Para a direita
-    bool folha; // Identificar se é o última nível ou não
-    TipoConteudo tipoFiltro;
-    GeneroConteudo generoFiltro;
-    FiltroCronologico cronologiaFiltro;
-    // Construtor para inicializar de forma segura os ponteiros sem risco de lixo de memória
-    NodoA() : texto(""), sim(nullptr), nao(nullptr), folha(false), tipoFiltro(QUALQUER_TIPO), generoFiltro(QUALQUER_GENERO), cronologiaFiltro(QUALQUER_ANO) {}
+class NodoA { 
+    public:
+        std::string texto;
+        NodoA* sim; // Para a esquerda
+        NodoA* nao; // Para a direita
+        bool folha; // Identificar se é o última nível ou não
+        TipoConteudo tipoFiltro;
+        GeneroConteudo generoFiltro;
+        FiltroCronologico cronologiaFiltro;
+        // Construtor para inicializar de forma segura os ponteiros sem risco de lixo de memória
+        NodoA() : texto(""), sim(nullptr), nao(nullptr), folha(false), tipoFiltro(QUALQUER_TIPO), generoFiltro(QUALQUER_GENERO), cronologiaFiltro(QUALQUER_ANO) {}
 };
 
 // 6. Classe da árvore
-class Arvore { public:
-    NodoA* raiz;
-    Arvore(); // Construtor da árvore
-    ~Arvore(); // Destrutor da árvore
-    void apagarArvore(NodoA* atual);
-    void inserirPorCaminho(const std::string& caminho, const std::string& filtro, bool folha);
-    void gerarArvoreDecisao();
-    void inserirFiltrar(NodoA* atual, ListaDupla& listaCad, ListaSimples& listaRec);
+class Arvore { 
+    public:
+        NodoA* raiz;
+        Arvore(); // Construtor da árvore
+        ~Arvore(); // Destrutor da árvore
+        void apagarArvore(NodoA* atual);
+        void inserirPorCaminho(const std::string& caminho, const std::string& filtro, bool folha);
+        void gerarArvoreDecisao();
+        void inserirFiltrar(NodoA* atual, ListaDupla& listaCad, ListaSimples& listaRec);
 };
 
 #endif // ARVORE_H_INCLUDED

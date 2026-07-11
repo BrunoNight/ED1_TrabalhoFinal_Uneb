@@ -3,7 +3,7 @@
 #define MENU_H_INCLUDED
 
 // 2. Incluir bibliotecas existentes
-#include <windows.h>
+//#include <windows.h>
 
 // 3. Declaração de classes das bibliotecas criadas para evitar inclusão cíclica
 struct Usuario;

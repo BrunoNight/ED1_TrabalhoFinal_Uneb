@@ -4,6 +4,7 @@
 
 // 2. Inclusão de bibliotecas criadas
 #include "listas.h"
+#include "estetica.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
@@ -25,7 +26,7 @@ void cadastrarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string tit
     listaCad.inserirOrdenado(c);
     listaAssist.inserirOrdenado(c);
 
-    centralizarTexto("  [+] Cadastrado: \"" + titulo + "\"  (ID: " + c.id + ")\n");
+    centralizarTexto("  [+] Cadastrado: \"" + titulo + "\"  (ID: " + to_string(c.id) + ")\n");
 }
 
 // 6. Função para gerar novo ID

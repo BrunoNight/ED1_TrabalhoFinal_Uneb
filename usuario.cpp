@@ -73,7 +73,7 @@ void alterarLogin(ListaUsuarios& listaUsuarios, string login, string nvLogin) {
     // Verificar se o novo login desejado ainda não está sendo usado por outra pessoa
     while(atual != nullptr) {
         if(atual -> login == nvLogin) {
-            centralizarTexto("\n[Aviso] O novo login '" << nvLogin << "' já está sendo usado! [Aviso]");
+            centralizarTexto("\n[Aviso] O novo login '" + nvLogin + "' já está sendo usado! [Aviso]");
             return;
         }
         atual = atual -> prox;

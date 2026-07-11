@@ -4,6 +4,7 @@
 
 // 2. Inclusão de bibliotecas criadas
 #include "menu.h"
+#include "arvore.h"
 #include "estetica.h"
 #include "admin.h"
 #include "estatisticas.h"
@@ -55,9 +56,9 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
 
                     // Redireciona conforme o nível de permissão
                     if(usuarioLogado -> tipo == ADMINISTRADOR) {
-                        povAdministrador(usuarioLogado, ListaU, ListaSimplesC, ListaDuplaC, arv, est);
+                        povAdministrador(usuarioLogado, ListaU, listaCad, listaAssist, listaRec, arv, est);
                     } else {
-                        povUsuarioComum(usuarioLogado, ListaU, ListaSimplesC, ListaDuplaC, arv, est);
+                        povUsuarioComum(usuarioLogado, ListaU, listaCad, listaAssist, listaRec, arv, est);
                     }
                 }
 
@@ -75,7 +76,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
                 cin >> senha;
                 limparBufferEntrada();
 
-                cadastrarUsuario(listaUsuarios, login, senha, COMUM);
+                cadastrarUsuario(ListaU, login, senha, COMUM);
 
                 centralizarTexto("\n[Sucesso] Sua conta foi criada com sucesso! [Sucesso]");
 
@@ -135,7 +136,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
                 cin >> novo.ano;
                 limparBufferEntrada();
 
-                admin.cadastrarTitulo(listaCad, listaAssist, novo);
+                Admin::cadastrarTitulo(listaCad, listaAssist, novo);
                 break;
             }
             case 2: {
@@ -144,7 +145,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
                 centralizarTexto("Digite o título para remover: ");
                 getline(cin, titulo);
 
-                admin.removerTitulo(listaCad, listaAssist, listaRec, titulo);
+                Admin::removerTitulo(listaCad, listaAssist, listaRec, titulo);
                 break;
             }
             case 3: {
@@ -169,7 +170,8 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
                 break;
             }
         }
-        system("pause");
+        //system("pause");
+        cout << "\nPressione [Enter] para continuar...";
     }
 }
 
@@ -194,7 +196,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
                 break;
             }
             case 2: {
-                listaMaisAssistidos(ListaDuplaC);
+                listaMaisAssistidos(listaAssist);
                 break;
             }
             case 3: {

@@ -11,6 +11,9 @@
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
 
+string Admin::nome = "";
+string Admin::senha = "";
+
 // 4. Função de construção do admin
 Admin::Admin(string n, string s) {
 	nome = n;
@@ -44,7 +47,7 @@ void Admin::cadastrarTitulo(ListaDupla& listaCad, ListaDupla& listaAssist, Conte
     listaCad.inserirOrdenado(titulo);     // insere no catálogo
     listaAssist.inserirOrdenado(titulo);  // insere no ranking
 
-    centralizarTexto("  [+] Cadastrado: \"" + titulo.titulo + "\"  (ID: " + titulo.id + ")\n");
+    centralizarTexto("  [+] Cadastrado: \"" + titulo.titulo + "\"  (ID: " + to_string(titulo.id) + ")\n");
 }
 
 // 8. Função do admin de busca de conteúdo
@@ -52,15 +55,15 @@ Conteudo Admin::buscarTitulo(ListaDupla& lista, string nomeTitulo) {
     NodoDuplo* no = lista.buscar(nomeTitulo);
     if (no) {
         const Conteudo& c = no->conteudo;
-        centralizarTexto("  [Encontrado]\n"
-             + "  ID       : " + c.id       + "\n"
+        
+        centralizarTexto(string("  [Encontrado]\n") 
+             + "  ID       : " + to_string(c.id) + "\n"
              + "  Titulo   : " + c.titulo   + "\n"
              + "  Tipo     : " + c.tipo     + "\n"
              + "  Genero   : " + c.genero   + "\n"
-             + "  Ano      : " + c.ano      + "\n"
-             + "  Views    : " + c.numViews + "\n"
-             + "  Avaliacao: " + fixed << setprecision(1)
-             + c.avaliacao + "\n");
+             + "  Ano      : " + to_string(c.ano )     + "\n"
+             + "  Views    : " + to_string(c.numViews) + "\n"
+             + "  Avaliacao: " + to_string(c.avaliacao)+ "\n");
         return c;
     }
     centralizarTexto("  [!] \"" + nomeTitulo + "\" nao encontrado.\n");
@@ -71,7 +74,7 @@ Conteudo Admin::buscarTitulo(ListaDupla& lista, string nomeTitulo) {
 
 // 9. Função do admin de listagem de conteúdos
 void Admin::listarTitulos(ListaDupla& lista) {
-    centralizarTexto("=== CATALOGO (Admin: " + nome + ") ===\n");
+    centralizarTexto(string("(=== CATALOGO (Admin: ") + nome + ") ===\n");
     listaCadastrados(lista);  // delega — sem lógica duplicada
 }
 
@@ -105,21 +108,21 @@ void Admin::atualizarTituloGenero(ListaDupla& lista, string nomeTitulo, string g
 void Admin::atualizarTituloAno(ListaDupla& lista, string nomeTitulo, int ano) {
     NodoDuplo* no = lista.buscar(nomeTitulo);
     if (!no) { centralizarTexto("  [!] Nao encontrado: \"" + nomeTitulo + "\"\n"); return; }
-    centralizarTexto("  [~] Ano de \"" + nomeTitulo + "\": " + no->conteudo.ano + " -> " + ano + "\n");
+    centralizarTexto("  [~] Ano de \"" + nomeTitulo + "\": " + to_string(no->conteudo.ano) + " -> " + to_string(ano) + "\n");
     no->conteudo.ano = ano;
 }
 
 // 14. Função do admin de avaliação do conteúdo
 void Admin::atualizarAvaliacao(ListaDupla& lista, string nomeTitulo, float novaAvaliacao) {
     if (novaAvaliacao < 0.0f || novaAvaliacao > 10.0f) {
-        centralizarTexto("  [!] Avaliacao invalida (" + novaAvaliacao + "). Use 0.0 a 10.0.\n");
+        centralizarTexto("  [!] Avaliacao invalida (" + to_string(novaAvaliacao) + "). Use 0.0 a 10.0.\n");
         return;
     }
     NodoDuplo* no = lista.buscar(nomeTitulo);
     if (!no) { centralizarTexto("  [!] Nao encontrado: \"" + nomeTitulo + "\"\n"); return; }
     centralizarTexto("  [~] Avaliacao de \"" + nomeTitulo + "\": "
-         + fixed + setprecision(1) + no->conteudo.avaliacao
-         + " -> " + novaAvaliacao + "\n");
+         + to_string(no->conteudo.avaliacao)
+         + " -> " + to_string(novaAvaliacao) + "\n");
     no->conteudo.avaliacao = novaAvaliacao;
 }
 

@@ -1,15 +1,16 @@
-// 1. Inicialização da inclusão do header
+// 1. Inicializaï¿½ï¿½o da inclusï¿½o do header
 #ifndef ADMIN_H_INCLUDED
 #define ADMIN_H_INCLUDED
 
-// 2. Inclusão de bibliotecas existentes
+// 2. Inclusï¿½o de bibliotecas existentes
 #include <string>
 
-// 3. Inclusão de bibliotecas criadas
+// 3. Inclusï¿½o de bibliotecas criadas
 #include "listas.h"
 #include "conteudo.h"
+#include "usuario.h"
 
-// 4. Declaração de classes e structs das bibliotecas criadas para evitar inclusão cíclica // ACRESCENTADO
+// 4. Declaraï¿½ï¿½o de classes e structs das bibliotecas criadas para evitar inclusï¿½o cï¿½clica // ACRESCENTADO
 class ListaDupla;
 class ListaSimples;
 class Conteudo;
@@ -17,29 +18,29 @@ class Conteudo;
 // 5. Classe do admin
 class Admin {
     private:
-        std::string nome;
-        std::string senha;
+        static std::string nome;
+        static std::string senha;
 
     public:
         Admin(std::string nome, std::string senha);
         bool login(std::string tentativaSenha);
         std::string getNome();
 
-        void cadastrarTitulo(ListaDupla& listaCad, ListaDupla& listaAssist, Conteudo& titulo);
+        static void cadastrarTitulo(ListaDupla& listaCad, ListaDupla& listaAssist, Conteudo& titulo);
 
-        Conteudo buscarTitulo(ListaDupla& lista, std::string nomeTitulo);
+        static Conteudo buscarTitulo(ListaDupla& lista, std::string nomeTitulo);
 
-        void listarTitulos(ListaDupla& lista);
+        static void listarTitulos(ListaDupla& lista);
 
-        void atualizarTitulo(ListaDupla& lista, std::string nomeTitulo, std::string novoTitulo);
-        void atualizarTituloTipo(ListaDupla& lista, std::string nomeTitulo, std::string tipo);
-        void atualizarTituloGenero(ListaDupla& lista, std::string nomeTitulo, std::string genero);
-        void atualizarTituloAno(ListaDupla& lista, std::string nomeTitulo, int ano);
-        void atualizarAvaliacao(ListaDupla& lista, std::string nomeTitulo, float novaAvaliacao);
+        static void atualizarTitulo(ListaDupla& lista, std::string nomeTitulo, std::string novoTitulo);
+        static void atualizarTituloTipo(ListaDupla& lista, std::string nomeTitulo, std::string tipo);
+        static void atualizarTituloGenero(ListaDupla& lista, std::string nomeTitulo, std::string genero);
+        static void atualizarTituloAno(ListaDupla& lista, std::string nomeTitulo, int ano);
+        static void atualizarAvaliacao(ListaDupla& lista, std::string nomeTitulo, float novaAvaliacao);
 
-        void removerTitulo(ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, std::string nomeTitulo);
+        static void removerTitulo(ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, std::string nomeTitulo);
 
-        void assistir(ListaDupla& listaCad, ListaDupla& listaAssist, std::string nomeTitulo);
+        static void assistir(ListaDupla& listaCad, ListaDupla& listaAssist, std::string nomeTitulo);
 };
 
 #endif // ADMIN_H_INCLUDED
