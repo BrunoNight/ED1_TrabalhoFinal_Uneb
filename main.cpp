@@ -1,6 +1,10 @@
 // 1. Inclusão de bibliotecas existentes
 #include <iostream>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 // 2. Inclusão de bibliotecas criadas
 #include "listas.h"
 #include "arvore.h"
@@ -13,6 +17,10 @@ using namespace std;
 
 // 4. Execução do main
 int main() {
+#ifdef _WIN32
+    // Define texto do terminal para UTF-8 caso o SO seja Windows
+    SetConsoleOutputCP(CP_UTF8);
+#endif
     // 4.1. Instanciação das Estruturas de Dados do Sistema
     ListaUsuarios listaUsuarios;  // Lista Simples de usuários (usuario.h / usuario.cpp)
     ListaDupla listaCad;          // Catálogo Geral de Conteúdos (Mais Assistidos / Ordem de Views)
