@@ -43,6 +43,7 @@ class NodoDuplo {
 class ListaSimples {
 	public:
 	    ListaSimples();
+		~ListaSimples() { limpar(); }
 
 	    void inserirOrdenado(Conteudo& c);
 
@@ -64,6 +65,7 @@ class ListaSimples {
 class ListaDupla {
 	public:
 	    ListaDupla();
+		~ListaDupla() { limpar(); }
 
 	    void inserirOrdenado(Conteudo& c);
 
