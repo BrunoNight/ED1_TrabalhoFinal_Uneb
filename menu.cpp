@@ -98,6 +98,9 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
                 break;
             }
         }
+
+        cout << "\nPressione [Enter] para continuar...";
+        cin.get();
     }
 }
 
@@ -172,6 +175,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
         }
         //system("pause");
         cout << "\nPressione [Enter] para continuar...";
+        cin.get();
     }
 }
 
@@ -200,14 +204,17 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
                 break;
             }
             case 3: {
-                break;
+                cout << "\n[Saindo do sistema...]";
+                return;
             }
             default: {
                 centralizarTexto("Opção inválida!");
                 break;
             }
         }
-        system("pause");
+        //system("pause");
+        cout << "\nPressione [Enter] para continuar...\n";
+        cin.get();
     }
 }
 
