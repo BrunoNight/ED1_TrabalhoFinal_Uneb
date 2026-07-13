@@ -19,6 +19,7 @@ using namespace std;
 int main() {
 #ifdef _WIN32
     // Define texto do terminal para UTF-8 caso o SO seja Windows
+    SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 #endif
     // 4.1. Instanciação das Estruturas de Dados do Sistema
