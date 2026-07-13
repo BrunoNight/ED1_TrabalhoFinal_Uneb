@@ -35,51 +35,11 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
 
         switch(opcao) {
             case 1: {
-                esteticaCabecalhoSistema();
-                string login, senha;
-                centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
-                centralizarTexto(Estetica::YELLOW + "TELA DE LOGIN");
-                centralizarTexto(Estetica::RED + "Digite o Login: ");
-                cin >> login;
-                limparBufferEntrada();
-                centralizarTexto(Estetica::RED + "Digite a Senha: ");
-                cin >> senha;
-                limparBufferEntrada();
-
-                // Busca o usuário na lista de usuários cadastrados
-                Usuario* usuarioLogado = logarUsuario(ListaU, login, senha);
-
-                if(usuarioLogado == nullptr) {
-                    centralizarTexto("\n[Aviso] Credenciais incorretas ou usuário inexistente! [Aviso]");
-                } else {
-                    centralizarTexto("\n[Sucesso] Bem-vindo(a), " + usuarioLogado -> login + "! [Sucesso]");
-
-                    // Redireciona conforme o nível de permissão
-                    if(usuarioLogado -> tipo == ADMINISTRADOR) {
-                        povAdministrador(usuarioLogado, ListaU, listaCad, listaAssist, listaRec, arv, est);
-                    } else {
-                        povUsuarioComum(usuarioLogado, ListaU, listaCad, listaAssist, listaRec, arv, est);
-                    }
-                }
-
+                login(ListaU, listaCad, listaAssist, listaRec, arv, est);
                 break;
             }
             case 2: {
-                esteticaCabecalhoSistema();
-                string login, senha;
-                centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
-                centralizarTexto(Estetica::YELLOW + "TELA DE CADASTRO");
-                centralizarTexto(Estetica::RED + "Digite o Login: ");
-                cin >> login;
-                limparBufferEntrada();
-                centralizarTexto(Estetica::RED + "Digite a Senha: ");
-                cin >> senha;
-                limparBufferEntrada();
-
-                cadastrarUsuario(ListaU, login, senha, COMUM);
-
-                centralizarTexto("\n[Sucesso] Sua conta foi criada com sucesso! [Sucesso]");
-
+                cadastro(ListaU);
                 break;
             }
             case 3: {
@@ -99,8 +59,54 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
             }
         }
 
-        cout << "\nPressione [Enter] para continuar...";
+        cout << "\nPressione [Enter] para continuar...\n";
         cin.get();
+    }
+}
+
+void login(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est) {
+    esteticaCabecalhoSistema();
+    string login, senha;
+    centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
+    centralizarTexto(Estetica::YELLOW + "TELA DE LOGIN");
+    centralizarTexto(Estetica::RED + "Digite o Login: ");
+    cin >> login;
+    limparBufferEntrada();
+    centralizarTexto(Estetica::RED + "Digite a Senha: ");
+    cin >> senha;
+    limparBufferEntrada();
+
+    // Busca o usuário na lista de usuários cadastrados
+    Usuario* usuarioLogado = logarUsuario(ListaU, login, senha);
+
+    if(usuarioLogado == nullptr) {
+        centralizarTexto("\n[Aviso] Credenciais incorretas ou usuário inexistente! [Aviso]");
+    } else {
+        centralizarTexto("\n[Sucesso] Bem-vindo(a), " + usuarioLogado -> login + "! [Sucesso]");
+
+        // Redireciona conforme o nível de permissão
+        if(usuarioLogado -> tipo == ADMINISTRADOR) {
+            povAdministrador(usuarioLogado, ListaU, listaCad, listaAssist, listaRec, arv, est);
+        } else {
+            povUsuarioComum(usuarioLogado, ListaU, listaCad, listaAssist, listaRec, arv, est);
+        }
+    }
+}
+
+void cadastro(ListaUsuarios& ListaU) {
+    esteticaCabecalhoSistema();
+    string login, senha;
+    centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
+    centralizarTexto(Estetica::YELLOW + "TELA DE CADASTRO");
+    centralizarTexto(Estetica::RED + "Digite o Login: ");
+    cin >> login;
+    limparBufferEntrada();
+    centralizarTexto(Estetica::RED + "Digite a Senha: ");
+    cin >> senha;
+    limparBufferEntrada();
+
+    if(cadastrarUsuario(ListaU, login, senha, COMUM) == 1) {
+        centralizarTexto("\n[Sucesso] Sua conta foi criada com sucesso! [Sucesso]");
     }
 }
 
@@ -166,15 +172,14 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
             }
             case 6: {
                 centralizarTexto("Voltando...");
-                break;
+                return;
             }
             default: {
                 centralizarTexto("Opção inválida!");
                 break;
             }
         }
-        //system("pause");
-        cout << "\nPressione [Enter] para continuar...";
+        cout << "\nPressione [Enter] para continuar...\n";
         cin.get();
     }
 }
@@ -212,7 +217,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
                 break;
             }
         }
-        //system("pause");
+
         cout << "\nPressione [Enter] para continuar...\n";
         cin.get();
     }

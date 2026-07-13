@@ -24,7 +24,7 @@ class Usuario { public:
 // 6. Funções que serão executadas no sistema
 // // 6.1. ADMINISTRADOR E COMUM
 Usuario* logarUsuario(ListaUsuarios& listaUsuarios, const std::string login, const std::string senha);
-void cadastrarUsuario(ListaUsuarios& listaUsuarios, const std::string login, const std::string senha, perfil tipo);
+int cadastrarUsuario(ListaUsuarios& listaUsuarios, const std::string login, const std::string senha, perfil tipo);
 void alterarLogin(ListaUsuarios& listaUsuarios, const std::string login, const std::string nvLogin);
 void alterarSenha(ListaUsuarios& listaUsuarios, const std::string login, const std::string nvSenha);
 // // 6.2. ADMINISTRADOR

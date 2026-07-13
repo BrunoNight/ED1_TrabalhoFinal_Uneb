@@ -20,5 +20,7 @@ void executarSistema(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& li
 void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est);
 // // 4.3. NAVEGAÇÃO PELO SISTEMA NA PERSPECTIVA DO USUÁRIO COMUM
 void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est);
+void login(ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est);
+void cadastro(ListaUsuarios& ListaU);
 
 #endif // MENU_H_INCLUDED

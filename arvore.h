@@ -33,7 +33,7 @@ class Arvore {
         Arvore(); // Construtor da árvore
         ~Arvore(); // Destrutor da árvore
         void apagarArvore(NodoA* atual);
-        void inserirPorCaminho(const std::string& caminho, const std::string& filtro, bool folha);
+        void inserirPorCaminho(const std::string& caminho, const std::string& filtro, bool folha, int pTipo = 0, int pGenero = 0, int pCrono = 0);
         void gerarArvoreDecisao();
         void inserirFiltrar(NodoA* atual, ListaDupla& listaCad, ListaSimples& listaRec);
 };

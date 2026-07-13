@@ -3,6 +3,8 @@
 #include <string>
 #include <cstdio>  // Equivalente ao <stdio.h> em C++
 #include <cstring> // Necessário para usar funções de string, como o strtok para reconhecimento do arquivo de texto da árvore
+#include <limits>
+#include <cstdlib>
 
 // 2. Inclusão de bibliotecas criadas
 #include "arvore.h"
@@ -37,232 +39,196 @@ void Arvore::apagarArvore(NodoA* atual) {
 }
 
 // 8. Função para inserir novos nós conforme árvore de recomendação é usada
-void Arvore::inserirPorCaminho(const string& caminho, const string& filtro, bool folha) {
-    if(caminho.empty()) { // Garantir que, durante o percurso da árvore, o sistema não processe áreas vazias
+void Arvore::inserirPorCaminho(const string& caminho, const string& filtro, bool folha, int pTipo, int pGenero, int pCrono) {
+    if(caminho.empty()) { 
         return;
     }
 
-    if(raiz == nullptr) { // Se a árvore estiver vazia, cria a raiz primeiro
+    if(raiz == nullptr) { 
         raiz = new NodoA();
-        raiz -> texto = filtro;
-        raiz -> folha = folha;
-        raiz->sim = nullptr;
+        raiz->sim = nullptr; 
         raiz->nao = nullptr;
     }
 
-    NodoA* atual = raiz; // Ponteiro auxiliar para navegar na árvore sem perder a referência da raiz durante a inserção
+    NodoA* atual = raiz; 
 
-    for(size_t i = 0; i < caminho.length(); i++) { // Percorre o caminho (exemplo: 1-2-1-1-2) para construir ou localizar os nós na árvore de decisão
-        if (caminho[i] == '-') {
-            continue; // Pula os separadores
-        }
+    size_t inicioTraco = caminho.find('-');
+    
+    if(inicioTraco != string::npos) {
+        for(size_t i = inicioTraco + 1; i < caminho.length(); i++) { 
+            if (caminho[i] == '-') {
+                continue; 
+            }
 
-        if(caminho[i] == '1') {
-            if(atual -> sim == nullptr) { // Se o nó filho à esquerda não existe, aloca-o dinamicamente
-                atual -> sim = new NodoA();
+            if(caminho[i] == '1') {
+                if(atual->sim == nullptr) { 
+                    atual->sim = new NodoA();
+                    atual->sim->sim = nullptr; 
+                    atual->sim->nao = nullptr; 
+                }
+                atual = atual->sim; 
+                
+            } else if (caminho[i] == '2') {
+                if (atual->nao == nullptr) { 
+                    atual->nao = new NodoA();
+                    atual->nao->sim = nullptr; 
+                    atual->nao->nao = nullptr; 
+                }
+                atual = atual->nao; 
             }
-            atual = atual -> sim; // Vai para o nó filho
-        } else if (caminho[i] == '2') {
-            if (atual -> nao == nullptr) { // Se o nó filho à direita não existe, aloca-o dinamicamente
-                atual -> nao = new NodoA();
-            }
-            atual = atual -> nao; // Vai para o nó filho
         }
     }
 
     // Após percorrer o caminho, preenche os dados do nó de destino
-    atual -> texto = filtro;
-    atual -> folha = folha;
+    atual->texto = filtro;
+    atual->folha = folha;
 
-    // Garante que novos nós de folha não tenham filhos
+    // Se for folha, garante que não tem filhos e guarda os filtros numéricos
     if(folha) {
-        atual -> sim = nullptr;
-        atual -> nao = nullptr;
+        atual->sim = nullptr;
+        atual->nao = nullptr;
+        
+        // Conversão segura dos inteiros lidos do TXT para os Enums
+        atual->tipoFiltro = static_cast<decltype(atual->tipoFiltro)>(pTipo);
+        atual->generoFiltro = static_cast<decltype(atual->generoFiltro)>(pGenero);
+        atual->cronologiaFiltro = static_cast<decltype(atual->cronologiaFiltro)>(pCrono);
     }
 }
 
-// 9. Função para ir lendo os dados da árvore de recomendação, separar suas partes (na linha) e prepará-las para serem inseridas
-void Arvore::gerarArvoreDecisao() { // Abrir e reconhecer dados do arquivo txt para inserir nós da árvore de recomendação
-    FILE* arquivo = fopen("arvore_dados.txt", "r");
+// 9. Função para ir lendo os dados da árvore (Atualizada para extrair os filtros das folhas)
+void Arvore::gerarArvoreDecisao() { 
+    FILE* arquivo = fopen("arvore_dados2.txt", "r");
 
-    if(arquivo == nullptr) { // Se não conseguiu abrir arquivo
+    if(arquivo == nullptr) { 
         centralizarTexto("\n[Aviso] Arquivo arvore_dados.txt não pôde ser aberto! [Aviso]");
         return;
     }
 
-    char linha[300]; // Buffer para ler cada linha do arquivo
+    char linha[300]; 
 
-    // Lendo linha a linha do arquivo
     while(fgets(linha, sizeof(linha), arquivo) != nullptr) {
-        linha[strcspn(linha, "\n")] = 0; // Elimina o espaço de pular linhar após o texto da linha
+        linha[strcspn(linha, "\r\n")] = 0; // Limpa as quebras de linha com segurança
 
-        // Pula linhas vazias
         if(strlen(linha) == 0) {
             continue;
         }
 
-        // Para extração de campos por um delimitador ";"
-        char* parteCaminho = strtok(linha, ";"); // Ex.: 1-2-1
-        char* partePergunta = strtok(nullptr, ";"); // Ex.: Você prefere produções em formato longo de historia única?
-        char* parteFolha = strtok(nullptr, ";"); // Ex.: 0
+        char* parteCaminho = strtok(linha, ";"); 
+        char* partePergunta = strtok(nullptr, ";"); 
+        char* parteFolha = strtok(nullptr, ";"); 
 
         if (parteCaminho != nullptr && partePergunta != nullptr && parteFolha != nullptr) {
             bool folha = (parteFolha[0] == '1');
-            // Chama a função inserirPorCaminho para inserir baseada no caminho das coordenadas
-            // Ex: "1-1-2" -> insere
-            inserirPorCaminho(parteCaminho, partePergunta, folha);
+            
+            int tFiltro = 0, gFiltro = 0, cFiltro = 0;
+
+            // Só tenta ler mais dados da linha se for um nó final (folha)
+            if (folha) {
+                char* pTipo = strtok(nullptr, ";");
+                char* pGenero = strtok(nullptr, ";");
+                char* pCrono = strtok(nullptr, ";");
+
+                if (pTipo && pGenero && pCrono) {
+                    tFiltro = atoi(pTipo); 
+                    gFiltro = atoi(pGenero);
+                    cFiltro = atoi(pCrono);
+                }
+            }
+
+            // Chama a inserção passando os filtros também
+            inserirPorCaminho(parteCaminho, partePergunta, folha, tFiltro, gFiltro, cFiltro);
         }
     }
 
     fclose(arquivo);
 }
 
-// 10. Função para inserção das perguntas e filtração dos resultados, assim como lista final de recomendação
+// 10. Função para inserção das perguntas e filtração dos resultados
 void Arvore::inserirFiltrar(NodoA* atual, ListaDupla& listaCad, ListaSimples& listaRec) {
     if(atual == nullptr) {
-        centralizarTexto("\n[Aviso] Nó inválido alcançado ou árvore de decisão não gerada [Aviso]");
+        centralizarTexto(Estetica::RED + "\n[Aviso] Beco sem saída alcançado! [Aviso]");
+        centralizarTexto("O caminho que você escolheu ainda não foi cadastrado no arquivo TXT.");
         return;
     }
 
-    if(!atual -> folha) {
+    if(!(atual->folha)) {
         int opcao = 0;
         while(true) {
             centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
-            centralizarTexto(Estetica::GREEN + atual -> texto); // Exibe a pergunta armazenada no nó
+            centralizarTexto(Estetica::GREEN + atual->texto); 
             centralizarTexto(Estetica::YELLOW + " (> " + bordaB + Estetica::YELLOW + " <) ");
             centralizarTexto(Estetica::RED + "1 - Sim");
             centralizarTexto(Estetica::RED + "2 - Não");
             centralizarTexto(Estetica::RED + "Escolha uma opção (1 ou 2): ");
+            
             cin >> opcao;
-            limparBufferEntrada();
 
-            if(opcao < 1 || opcao > 2) {
-                cin.clear();
-                cin.ignore(10000, '\n');
+            if(cin.fail() || opcao < 1 || opcao > 2) {
+                cin.clear(); 
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                 centralizarTexto("\n[Aviso] Opção inválida! Digite apenas 1 (Sim) ou 2 (Não) [Aviso]");
             } else {
+                limparBufferEntrada(); 
                 break;
             }
         }
 
         if(opcao == 1) {
-            inserirFiltrar(atual -> sim, listaCad, listaRec);
+            inserirFiltrar(atual->sim, listaCad, listaRec);
         } else {
-            inserirFiltrar(atual -> nao, listaCad, listaRec);
+            inserirFiltrar(atual->nao, listaCad, listaRec);
         }
+        
     } else {
         centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
-        centralizarTexto(Estetica::RED + "  RECOMENDAÇÃO BASEADA NO SEU PERFIL: " + atual -> texto);
+        centralizarTexto(Estetica::RED + "  RECOMENDAÇÃO BASEADA NO SEU PERFIL: " + atual->texto);
         centralizarTexto(Estetica::YELLOW + " (> " + bordaA + Estetica::YELLOW + " <) ");
 
-        // Limpa a lista de recomendações anterior para evitar lixo ou duplicações
         listaRec.limpar();
 
-        // Ponteiro de varredura para percorrer o catálogo completo
         NodoDuplo* nav = listaCad.getCabeca();
 
         while(nav != nullptr) {
-            Conteudo& c = nav -> conteudo;
+            Conteudo& c = nav->conteudo;
             bool tipoBool = false;
             bool generoBool = false;
             bool anoBool = false;
 
-            // Filtragem por correspondência de palavras-chave baseada no nó folha
-            // Filtro de Tipo (Filme, Série, Documentário, Anime, Cartoon)
-            switch(atual -> tipoFiltro) {
-                case FILME:
-                    if(c.tipo == "Filme") {
-                        tipoBool = true;
-                    }
-                    break;
-                case SERIE:
-                    if(c.tipo == "Série") {
-                        tipoBool = true;
-                    }
-                    break;
-                case DOCUMENTARIO:
-                    if(c.tipo == "Documentário") {
-                        tipoBool = true;
-                    }
-                    break;
-                case ANIME:
-                    if(c.tipo == "Anime") {
-                        tipoBool = true;
-                    }
-                    break;
-                case CARTOON:
-                    if(c.tipo == "Cartoon") {
-                        tipoBool = true;
-                    }
-                    break;
-                case QUALQUER_TIPO:
-                    tipoBool = true;
-                    break;
+            switch(atual->tipoFiltro) {
+                case FILME:         tipoBool = (c.tipo == "Filme"); break;
+                case SERIE:         tipoBool = (c.tipo == "Série"); break;
+                case DOCUMENTARIO:  tipoBool = (c.tipo == "Documentário"); break;
+                case ANIME:         tipoBool = (c.tipo == "Anime"); break;
+                case CARTOON:       tipoBool = (c.tipo == "Cartoon"); break;
+                case QUALQUER_TIPO: tipoBool = true; break;
+                default: break;
             }
 
-            // Filtro de Gênero (Ação, Comédia, Drama, Terror, Ficção Científica, Fantasia)
-            switch (atual -> generoFiltro) {
-                case ACAO:
-                    if(c.genero == "Ação") {
-                        generoBool = true;
-                    }
-                    break;
-                case COMEDIA:
-                    if(c.genero == "Comédia") {
-                        generoBool = true;
-                    }
-                    break;
-                case DRAMA:
-                    if(c.genero == "Drama") {
-                        generoBool = true;
-                    }
-                    break;
-                case TERROR:
-                    if(c.genero == "Terror") {
-                        generoBool = true;
-                    }
-                    break;
-                case FIC_CIENTIFICA:
-                    if(c.genero == "Ficção Científica") {
-                        generoBool = true;
-                    }
-                    break;
-                case FANTASIA:
-                    if(c.genero == "Fantasia") {
-                        generoBool = true;
-                    }
-                    break;
-                case QUALQUER_GENERO:
-                    generoBool = true;
-                    break;
+            switch (atual->generoFiltro) {
+                case ACAO:            generoBool = (c.genero == "Ação"); break;
+                case COMEDIA:         generoBool = (c.genero == "Comédia"); break;
+                case DRAMA:           generoBool = (c.genero == "Drama"); break;
+                case TERROR:          generoBool = (c.genero == "Terror"); break;
+                case FIC_CIENTIFICA:  generoBool = (c.genero == "Ficção Científica"); break;
+                case FANTASIA:        generoBool = (c.genero == "Fantasia"); break;
+                case QUALQUER_GENERO: generoBool = true; break;
+                default: break;
             }
 
-            // Filtro de Época / Ano (Recentes: >= 2000 vs Antigos: < 2000)
-            switch (atual -> cronologiaFiltro) {
-                case RECENTE:
-                    if(c.ano >= 2000) {
-                        anoBool = true;
-                    }
-                    break;
-                case ANTIGO:
-                    if(c.ano < 2000) {
-                        anoBool = true;
-                    }
-                    break;
-                case QUALQUER_ANO:
-                    anoBool = true;
-                    break;
+            switch (atual->cronologiaFiltro) {
+                case RECENTE:      anoBool = (c.ano >= 2000); break;
+                case ANTIGO:       anoBool = (c.ano < 2000); break;
+                case QUALQUER_ANO: anoBool = true; break;
+                default: break;
             }
 
-            // Se o conteúdo passar por todos os critérios de filtragem, ele é inserido à lista
             if (tipoBool && generoBool && anoBool) {
                 listaRec.inserirOrdenado(c);
             }
 
-            nav = nav -> proximo; // Avança para o próximo ponteiro do catálogo
+            nav = nav->proximo; 
         }
 
-        // Exibe a listagem final de recomendações formatada para o usuário
         listaRecomendados(listaRec);
     }
 }

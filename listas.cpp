@@ -81,39 +81,39 @@ void ListaSimples::exibir(){
         return;
     }
 
-    /*centralizarTexto(left + "  " + std::setw(4) + "Pos"
-              + setw(32) + "Nome"
-              + setw(14) + "Tipo"
-              + setw(18) + "Genero"
-              + setw(6)  + "Ano"
-              + "Avaliacao\n");
-   	centralizarTexto("  " + string(78, '-') + "\n");*/
+    cout << left << "  " << std::setw(4) << "Pos"
+              << setw(32) << "Nome"
+              << setw(14) << "Tipo"
+              << setw(18) << "Genero"
+              << setw(6)  << "Ano"
+              << "Avaliacao\n";
+   	cout << "  " + string(78, '-') + "\n";
 
-    centralizarTexto(string("  ") + "Pos"
+    /*centralizarTexto(string("  ") + "Pos"
               + "Nome"
               + "Tipo"
               + "Genero"
               + "Ano"
-              + "Avaliacao\n");
-   	centralizarTexto("  " + string(78, '-') + "\n");
+              + "Avaliacao\n");*/
+   	cout << "  " + string(78, '-') + "\n";
 
     int pos = 1;
     NodoSimples* atual = cabeca;
     while (atual != nullptr) {
         Conteudo& c = atual->conteudo;
-        /*centralizarTexto("  " + left + setw(4) + pos++
-                  + setw(32) + c.titulo
-                  + setw(14) + c.tipo
-                  + setw(18) + c.genero
-                  + setw(6)  + c.ano
-                  + fixed + setprecision(1) + c.avaliacao + "\n");*/
+        cout << "  " << left << setw(4) << pos++
+                  << setw(32) << c.titulo
+                  << setw(14) << c.tipo
+                  << setw(18) << c.genero
+                  << setw(6)  << c.ano
+                  << fixed << setprecision(1) << c.avaliacao << "\n";
         
-        centralizarTexto(string("  ")+ to_string(pos++)
+        /*centralizarTexto(string("  ")+ to_string(pos++)
                   + c.titulo
                   + c.tipo
                   + c.genero
                   + to_string(c.ano)
-                  + to_string(c.avaliacao) + "\n");
+                  + to_string(c.avaliacao) + "\n");*/
         atual = atual->proximo;
     }
 }
@@ -245,34 +245,34 @@ void ListaDupla::exibirFrente(){
         return;
     }
 
-    /*centralizarTexto(left + "  " + setw(5) + "Rank"
-              + setw(32) + "Nome"
-              + setw(14) + "Tipo"
-              + setw(18) + "Gênero"
-              + right + "Visualizações\n");*/
+    cout << left << "  " << setw(5) << "Rank"
+              << setw(32) << "Nome"
+              << setw(14) << "Tipo"
+              << setw(18) << "Gênero"
+              <<right << "Visualizações\n";
 
-    centralizarTexto(string("  ")+ "Rank"
+    /*centralizarTexto(string("  ")+ "Rank"
               + "Nome"
               + "Tipo"
               + "Gênero"
-              + "Visualizações\n");
-    centralizarTexto("  " + string(78, '-') + "\n");
+              + "Visualizações\n");*/
+    cout << "  " + string(78, '-') + "\n";
 
     int pos = 1;
     NodoDuplo* atual = cabeca;
     while (atual != nullptr) {
         const Conteudo& c = atual->conteudo;
-        /*centralizarTexto("  " + left + setw(5) + ("#" + to_string(pos++))
-                  + setw(32) + c.titulo
-                  + setw(14) + c.tipo
-                  + setw(18) + c.genero
-                  + right + std::setw(8) + c.numViews + "\n");*/
+        cout << "  " << left << setw(5) << ("#" + to_string(pos++))
+                  << setw(32) << c.titulo
+                  << setw(14) << c.tipo
+                  << setw(18) << c.genero
+                  << right << std::setw(8) << c.numViews << "\n";
         
-        centralizarTexto("  " + ("#" + to_string(pos++))
+        /*centralizarTexto("  " + ("#" + to_string(pos++))
                   + c.titulo
                   + c.tipo
                   + c.genero
-                  + to_string(c.numViews) + "\n");
+                  + to_string(c.numViews) + "\n");*/
         atual = atual->proximo;
     }
 }
@@ -284,26 +284,26 @@ void ListaDupla::exibirReverso() {
         return;
     }
 
-    /*centralizarTexto(left + "  " + setw(5) + "Rank"
-              + setw(32) + "Nome"
-              + right + "Visualizações\n");*/
+    cout << left << "  " << setw(5) << "Rank"
+              << setw(32) << "Nome"
+              << right << "Visualizações\n";
 
-    centralizarTexto(string("  ")+ "Rank"
+    /*centralizarTexto(string("  ")+ "Rank"
               + "Nome"
-              + "Visualizações\n");
-    centralizarTexto("  " + string(50, '-') + "\n");
+              + "Visualizações\n");*/
+    cout << "  " + string(50, '-') + "\n";
 
     int pos = tamanho;
     NodoDuplo* atual = cauda;
     while (atual != nullptr) {
         Conteudo& c = atual->conteudo;
-        /*centralizarTexto("  " + left + setw(5) + ("#" + to_string(pos--))
-                  + setw(32) + c.titulo
-                  + right + setw(8) + c.numViews + "\n");*/
+        cout << "  " << left << setw(5) << ("#" + to_string(pos--))
+                  << setw(32) << c.titulo
+                  << right << setw(8) << c.numViews << "\n";
         
-        centralizarTexto("  " + ("#" + to_string(pos--))
+        /*centralizarTexto("  " + ("#" + to_string(pos--))
                               + c.titulo
-                              + to_string(c.numViews) + "\n");
+                              + to_string(c.numViews) + "\n");*/
         atual = atual->anterior;
     }
 }

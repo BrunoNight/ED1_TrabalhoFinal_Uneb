@@ -30,7 +30,7 @@ Usuario* logarUsuario(ListaUsuarios& listaUsuarios, string login, string senha) 
 }
 
 // 6. Função de cadastro de usuário no sistema
-void cadastrarUsuario(ListaUsuarios& listaUsuarios, string login, string senha, perfil tipo) {
+int cadastrarUsuario(ListaUsuarios& listaUsuarios, string login, string senha, perfil tipo) {
     Usuario* atual = listaUsuarios.inicio;
     int novoId = 1;
 
@@ -38,7 +38,7 @@ void cadastrarUsuario(ListaUsuarios& listaUsuarios, string login, string senha, 
     while(atual != nullptr) {
         if(atual -> login == login) {
             centralizarTexto("\n[Aviso] O login informado já está em uso! [Aviso]");
-            return;
+            return 0;
         }
         if(atual -> id >= novoId) {
             novoId = atual -> id + 1;
@@ -64,6 +64,8 @@ void cadastrarUsuario(ListaUsuarios& listaUsuarios, string login, string senha, 
         }
         atual -> prox = novoUsuario;
     }
+
+    return 1;
 }
 
 // 7. Função para alteração do login
