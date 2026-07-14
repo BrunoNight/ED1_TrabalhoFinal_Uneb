@@ -14,6 +14,12 @@ static int proximoId = 1;
 
 // 5. Função para cadastrar conteúdo
 void cadastrarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string titulo, string tipo, string genero, int ano) {
+    NodoDuplo* existente = listaCad.buscar(titulo);
+    if (existente) {
+        centralizarTexto("  [!] Título já cadastrado: \"" + titulo + "\"\n");
+        return;
+    }
+    
     Conteudo c;
     c.id = gerarNovoId(); // id único e sequencial // CONSERTADO
     c.titulo = titulo;

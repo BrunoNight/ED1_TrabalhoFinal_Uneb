@@ -44,6 +44,9 @@ void Admin::cadastrarTitulo(ListaDupla& listaCad, ListaDupla& listaAssist, Conte
     // PONTO ÚNICO de geração de ID: gerarNovoId() em conteudo.cpp
     if (titulo.id <= 0) titulo.id = gerarNovoId();
 
+    titulo.numViews = 0;
+    titulo.avaliacao = 0;
+
     listaCad.inserirOrdenado(titulo);     // insere no catálogo
     listaAssist.inserirOrdenado(titulo);  // insere no ranking
 

@@ -249,7 +249,7 @@ void ListaDupla::exibirFrente(){
               << setw(32) << "Nome"
               << setw(14) << "Tipo"
               << setw(18) << "Gênero"
-              <<right << "Visualizações\n";
+              << right << "Visualizações\n";
 
     /*centralizarTexto(string("  ")+ "Rank"
               + "Nome"

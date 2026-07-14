@@ -9,6 +9,7 @@
 #include "admin.h"
 #include "estatisticas.h"
 #include "usuario.h"
+#include "conteudo.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
@@ -132,20 +133,22 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
             case 1: {
                 esteticaCabecalhoSistema();
                 centralizarTexto(Estetica::YELLOW + "CADASTRO DE NOVO TÍTULO" + Estetica::RESET);
-                Conteudo novo;
+                
+                string titulo, tipo, genero;
+                int ano;
 
                 // Solicitação dos dados do novo título
                 centralizarTexto("Título: ");
-                getline(cin, novo.titulo);
+                getline(cin, titulo);
                 centralizarTexto("Tipo: ");
-                getline(cin, novo.tipo);
+                getline(cin, tipo);
                 centralizarTexto("Gênero: ");
-                getline(cin, novo.genero);
+                getline(cin, genero);
                 centralizarTexto("Ano: ");
-                cin >> novo.ano;
+                cin >> ano;
                 limparBufferEntrada();
 
-                Admin::cadastrarTitulo(listaCad, listaAssist, novo);
+                cadastrarConteudo(listaCad, listaAssist, titulo, tipo, genero, ano);
                 break;
             }
             case 2: {
@@ -154,7 +157,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
                 centralizarTexto("Digite o título para remover: ");
                 getline(cin, titulo);
 
-                Admin::removerTitulo(listaCad, listaAssist, listaRec, titulo);
+                removerConteudo(listaCad, listaAssist, listaRec, titulo);
                 break;
             }
             case 3: {
