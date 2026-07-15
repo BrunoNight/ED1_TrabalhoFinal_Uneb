@@ -22,37 +22,69 @@ static const string bordaA(50, '-');
 static const string bordaB(20, '=');
 
 // 5. Função para comparar tipos ou gêneros com verificação de casos nas palavras
-static bool compararTiposOuGeneros(string s1, string s2) {
-    if(s1.empty() || s2.empty()) {
+static bool compararTiposOuGeneros(string s1, string s2)
+{
+    if(s1.empty() || s2.empty())
+    {
         return false;
     }
 
-    // Converte para minúsculas
-    transform(s1.begin(), s1.end(), s1.begin(), ::tolower);
-    transform(s2.begin(), s2.end(), s2.begin(), ::tolower);
+    transform(
+        s1.begin(),
+        s1.end(),
+        s1.begin(),
+        ::tolower
+    );
 
-    // Verificação direta ou por substring
-    if(s1 == s2 || s1.find(s2) != string::npos || s2.find(s1) != string::npos) {
+    transform(
+        s2.begin(),
+        s2.end(),
+        s2.begin(),
+        ::tolower
+    );
+
+    if(s1 == s2)
+    {
         return true;
     }
 
-    // Compatibilidade com termos acentuados no catálogo
-    if ((s2 == "serie" && s1.find("série") != string::npos) || (s1 == "serie" && s2.find("série") != string::npos)) {
+    if(
+        (s2 == "serie" &&
+         s1.find("série") != string::npos)
+    )
+    {
         return true;
     }
-    if ((s2 == "acao" && s1.find("ação") != string::npos) || (s1 == "acao" && s2.find("ação") != string::npos)) {
+
+    if(
+        (s2 == "acao" &&
+         s1.find("ação") != string::npos)
+    )
+    {
         return true;
     }
-    if ((s2 == "comedia" && s1.find("comédia") != string::npos) || (s1 == "comedia" && s2.find("comédia") != string::npos)) {
+
+    if(
+        (s2 == "comedia" &&
+         s1.find("comédia") != string::npos)
+    )
+    {
         return true;
     }
-    if ((s2 == "documentario" && s1.find("documentário") != string::npos) || (s1 == "documentario" && s2.find("documentário") != string::npos)) {
+
+    if(
+        (s2 == "documentario" &&
+         s1.find("documentário") != string::npos)
+    )
+    {
         return true;
     }
-    if ((s2 == "ficcao" && (s1.find("ficção") != string::npos || s1.find("fic") != string::npos))) {
-        return true;
-    }
-    if ((s2 == "fantasia" && s1.find("fantasia") != string::npos)) {
+
+    if(
+        (s2 == "ficcao" &&
+         s1.find("ficção") != string::npos)
+    )
+    {
         return true;
     }
 
@@ -96,103 +128,72 @@ static bool conteudoAtendeFiltro(
 )
 {
     if(no == nullptr)
+    {
         return false;
-
-    string criterio = no->texto;
-
-    if (contemTexto(criterio,"anime"))
-    {
-        return compararTiposOuGeneros(c.tipo,"Anime");
     }
 
-    if (contemTexto(criterio,"cartoon"))
+    if(no->tipoFiltro != QUALQUER_TIPO)
     {
-        return compararTiposOuGeneros(c.tipo,"Cartoon");
+        string tipoDesejado =
+            tipoParaString(no->tipoFiltro);
+
+        if(
+            !compararTiposOuGeneros(
+                c.tipo,
+                tipoDesejado
+            )
+        )
+        {
+            return false;
+        }
     }
 
-    if (contemTexto(criterio,"documentário") ||
-        contemTexto(criterio,"documentario"))
+    if(no->generoFiltro != QUALQUER_GENERO)
     {
-        return compararTiposOuGeneros(
-            c.tipo,
-            "Documentario"
-        );
+        string generoDesejado =
+            generoParaString(
+                no->generoFiltro
+            );
+
+        if(
+            !compararTiposOuGeneros(
+                c.genero,
+                generoDesejado
+            )
+        )
+        {
+            return false;
+        }
     }
 
-    if (contemTexto(criterio,"filme"))
+    if(no->cronologiaFiltro != QUALQUER_ANO)
     {
-        return compararTiposOuGeneros(
-            c.tipo,
-            "Filme"
-        );
-    }
+        if(
+            no->cronologiaFiltro ==
+            RECENTE
+        )
+        {
+            if(c.ano < 2000)
+            {
+                return false;
+            }
+        }
 
-    if (contemTexto(criterio,"série") ||
-        contemTexto(criterio,"serie"))
-    {
-        return compararTiposOuGeneros(
-            c.tipo,
-            "Serie"
-        );
-    }
-
-    if (contemTexto(criterio,"ação") ||
-        contemTexto(criterio,"acao"))
-    {
-        return compararTiposOuGeneros(
-            c.genero,
-            "Acao"
-        );
-    }
-
-    if (contemTexto(criterio,"comédia") ||
-        contemTexto(criterio,"comedia"))
-    {
-        return compararTiposOuGeneros(
-            c.genero,
-            "Comedia"
-        );
-    }
-
-    if (contemTexto(criterio,"drama"))
-    {
-        return compararTiposOuGeneros(
-            c.genero,
-            "Drama"
-        );
-    }
-
-    if (contemTexto(criterio,"terror") ||
-        contemTexto(criterio,"medo") ||
-        contemTexto(criterio,"paranoia"))
-    {
-        return compararTiposOuGeneros(
-            c.genero,
-            "Terror"
-        );
-    }
-
-    if (contemTexto(criterio,"ficção") ||
-        contemTexto(criterio,"ficcao") ||
-        contemTexto(criterio,"tecnologia"))
-    {
-        return compararTiposOuGeneros(
-            c.genero,
-            "Ficcao"
-        );
-    }
-
-    if (contemTexto(criterio,"fantasia") ||
-        contemTexto(criterio,"magia"))
-    {
-        return compararTiposOuGeneros(
-            c.genero,
-            "Fantasia"
-        );
+        if(
+            no->cronologiaFiltro ==
+            ANTIGO
+        )
+        {
+            if(c.ano >= 2000)
+            {
+                return false;
+            }
+        }
     }
 
     return true;
 }
+
 
 // 8. Função auxiliar para converter string para int em segurança
 static int converterParaInt(const string& valor, int valorPadrao) {

@@ -43,7 +43,7 @@
 	<string>
 	<cstddef>
 
-1784155331 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\arvore.cpp
+1784157327 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\arvore.cpp
 	<iostream>
 	<fstream>
 	<sstream>
@@ -95,7 +95,7 @@
 	<regex>
 	"estetica.h"
 
-1784155336 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\listas.cpp
+1784156736 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\listas.cpp
 	<iomanip>
 	"listas.h"
 	"estetica.h"
