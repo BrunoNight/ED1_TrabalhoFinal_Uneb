@@ -173,7 +173,7 @@ void ListaDupla::inserirNo(NodoDuplo* no) {
     }
 
     // Caso 2
-    if (no->conteudo.numViews >= cabeca->conteudo.numViews) {
+    if (no->conteudo.numViews > cabeca->conteudo.numViews) {
         no->proximo    = cabeca;
         cabeca->anterior = no;
         cabeca         = no;
