@@ -119,7 +119,7 @@ void Arvore::gerarArvoreDecisao() {
         // Tenta abrir o arquivo alternativo caso o primeiro não exista
         arq.open("arvore_dados2.txt");
         if (!arq.is_open()) {
-            cout << Estetica::RED << " [ERRO CRÍTICO] Arquivo 'arvore_dados.txt' não encontrado!" << Estetica::RESET << endl;
+            centralizarTexto(Estetica::RED + " [ERRO CRÍTICO] Arquivo 'arvore_dados.txt' não encontrado!" + Estetica::RESET);
             return;
         }
     }
@@ -166,7 +166,7 @@ void Arvore::gerarArvoreDecisao() {
 void Arvore::inserirFiltrar(NodoA* atual, ListaDupla& listaCad, ListaSimples& listaRec, Estatisticas& est) {
     if (atual == nullptr) {
         centralizarTexto(Estetica::RED + " [Erro] A árvore de recomendação não foi carregada corretamente." + Estetica::RESET);
-        cout << "\nPressione [Enter] para continuar...";
+        centralizarTexto("\nPressione [Enter] para continuar...");
         cin.get();
         return;
     }

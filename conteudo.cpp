@@ -19,7 +19,7 @@ void cadastrarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string tit
         centralizarTexto("  [!] Título já cadastrado: \"" + titulo + "\"\n");
         return;
     }
-    
+
     Conteudo c;
     c.id = gerarNovoId(); // id único e sequencial // CONSERTADO
     c.titulo = titulo;
@@ -56,7 +56,7 @@ void removerConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples
         centralizarTexto("  [!] \"" + titulo + "\" não encontrado em nenhuma lista.\n");
     } else {
         centralizarTexto("  [-] Removido: \"" + titulo + "\"");
-        if(!okRec) centralizarTexto("  (não estava nos recomendados)");
+        if(!okRec) centralizarTexto("  (Não estava nos recomendados)");
         centralizarTexto("\n");
     }
 }
