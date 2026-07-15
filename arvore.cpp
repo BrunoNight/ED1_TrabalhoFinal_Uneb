@@ -83,36 +83,112 @@ static string generoParaString(GeneroConteudo g) {
     }
 }
 
+static bool contemTexto(string texto, string busca) {
+    transform(texto.begin(), texto.end(), texto.begin(), ::tolower);
+    transform(busca.begin(), busca.end(), busca.begin(), ::tolower);
+    return texto.find(busca) != string::npos;
+}
+
 // 7. Função principal de validação do filtro
-static bool conteudoAtendeFiltro(const Conteudo& c, NodoA* no) {
-    if(no == nullptr) {
+static bool conteudoAtendeFiltro(
+    const Conteudo& c,
+    NodoA* no
+)
+{
+    if(no == nullptr)
         return false;
+
+    string criterio = no->texto;
+
+    if (contemTexto(criterio,"anime"))
+    {
+        return compararTiposOuGeneros(c.tipo,"Anime");
     }
 
-    // Validação de Tipo
-    if(no -> tipoFiltro != QUALQUER_TIPO) {
-        string strTipo = tipoParaString(no -> tipoFiltro);
-        if(!compararTiposOuGeneros(c.tipo, strTipo)) {
-            return false;
-        }
+    if (contemTexto(criterio,"cartoon"))
+    {
+        return compararTiposOuGeneros(c.tipo,"Cartoon");
     }
 
-    // Validação de Gênero
-    if(no -> generoFiltro != QUALQUER_GENERO) {
-        string strGenero = generoParaString(no -> generoFiltro);
-        if(!compararTiposOuGeneros(c.genero, strGenero)) {
-            return false;
-        }
+    if (contemTexto(criterio,"documentário") ||
+        contemTexto(criterio,"documentario"))
+    {
+        return compararTiposOuGeneros(
+            c.tipo,
+            "Documentario"
+        );
     }
 
-    // Validação Cronológica
-    if(no -> cronologiaFiltro != QUALQUER_ANO) {
-        if(no -> cronologiaFiltro == RECENTE && c.ano < 2000) {
-            return false;
-        }
-        if(no -> cronologiaFiltro == ANTIGO && c.ano >= 2000) {
-            return false;
-        }
+    if (contemTexto(criterio,"filme"))
+    {
+        return compararTiposOuGeneros(
+            c.tipo,
+            "Filme"
+        );
+    }
+
+    if (contemTexto(criterio,"série") ||
+        contemTexto(criterio,"serie"))
+    {
+        return compararTiposOuGeneros(
+            c.tipo,
+            "Serie"
+        );
+    }
+
+    if (contemTexto(criterio,"ação") ||
+        contemTexto(criterio,"acao"))
+    {
+        return compararTiposOuGeneros(
+            c.genero,
+            "Acao"
+        );
+    }
+
+    if (contemTexto(criterio,"comédia") ||
+        contemTexto(criterio,"comedia"))
+    {
+        return compararTiposOuGeneros(
+            c.genero,
+            "Comedia"
+        );
+    }
+
+    if (contemTexto(criterio,"drama"))
+    {
+        return compararTiposOuGeneros(
+            c.genero,
+            "Drama"
+        );
+    }
+
+    if (contemTexto(criterio,"terror") ||
+        contemTexto(criterio,"medo") ||
+        contemTexto(criterio,"paranoia"))
+    {
+        return compararTiposOuGeneros(
+            c.genero,
+            "Terror"
+        );
+    }
+
+    if (contemTexto(criterio,"ficção") ||
+        contemTexto(criterio,"ficcao") ||
+        contemTexto(criterio,"tecnologia"))
+    {
+        return compararTiposOuGeneros(
+            c.genero,
+            "Ficcao"
+        );
+    }
+
+    if (contemTexto(criterio,"fantasia") ||
+        contemTexto(criterio,"magia"))
+    {
+        return compararTiposOuGeneros(
+            c.genero,
+            "Fantasia"
+        );
     }
 
     return true;
@@ -282,7 +358,13 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
         if (fimDoCaminho || atual->folha || (atual->sim == nullptr && atual->nao == nullptr)) {
             centralizarTexto(Estetica::YELLOW + "★ RESULTADO DA SUA PESQUISA ★" + Estetica::RESET);
             cout << endl;
-            centralizarTexto("Critério selecionado: " + Estetica::GREEN + atual->texto + Estetica::RESET);
+
+            // CORREÇÃO: Evita exibir texto de pergunta como se fosse critério selecionado
+            if (atual->folha) {
+                centralizarTexto("Critério selecionado: " + Estetica::GREEN + atual->texto + Estetica::RESET);
+            } else {
+                centralizarTexto("Status: " + Estetica::YELLOW + "Fim da linha de navegação (Exibindo por aproximação)" + Estetica::RESET);
+            }
             cout << endl;
 
             // Filtra e exibe conteúdos
@@ -291,7 +373,7 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
 
             cout << left << "  " << setw(5) << "ID" << setw(32) << "Título" << setw(14) << "Tipo" << setw(16) << "Gênero" << right << "Ano\n";
             while (noAux != nullptr) {
-                // Lógica de comparação (aqui assumimos uma função de filtro existente no seu sistema)
+                // Lógica de comparação com função de filtro existente
                 if (conteudoAtendeFiltro(noAux->conteudo, atual)) {
                     cout << "  " << left << setw(5) << ("#" + to_string(noAux->conteudo.id))
                          << setw(32) << noAux->conteudo.titulo
@@ -309,14 +391,37 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
 
             cout << endl;
             centralizarTexto("1 - Assistir a um título | 2 - Voltar | 0 - Menu Principal");
-            int opc; cin >> opc; limparBufferEntrada();
+            int opc = -1;
+            if (!(cin >> opc)) {
+                cin.clear();
+                limparBufferEntrada();
+                continue;
+            }
+            limparBufferEntrada();
 
             if (opc == 1) {
-                // Lógica de assistir...
+                cout << "\n";
+                centralizarTexto("Digite o título que deseja assistir: ");
+                string tit;
+                getline(cin, tit);
+                assistirConteudo(listaCad, listaAssist, tit);
+                cout << "\nPressione [Enter] para continuar...";
+                cin.get();
             } else if (opc == 2) {
-                if (!historico.estaVazio()) {
+                // CORREÇÃO: Tratamento inteligente do "Voltar" na tela de resultados
+                if (fimDoCaminho) {
+                    // Se entrou por ramo nulo, o ponteiro atual não mudou nem foi empilhado.
+                    // Apenas desligamos a flag para reexibir a mesma pergunta exatamente onde estava.
+                    fimDoCaminho = false;
+                } else if (!historico.estaVazio()) {
+                    // Se era uma folha real cadastrada no arquivo, desempilha a pergunta anterior.
                     atual = historico.desempilhar();
-                    fimDoCaminho = false; // Volta atrás e limpa a flag
+                    fimDoCaminho = false;
+                } else {
+                    cout << endl;
+                    centralizarTexto(Estetica::RED + " [!] Você já está no início da árvore!" + Estetica::RESET);
+                    cout << "\nPressione [Enter] para continuar...";
+                    cin.get();
                 }
             } else if (opc == 0) {
                 navegando = false;
@@ -325,28 +430,57 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
         }
 
         // Caso contrário, mostra a pergunta
-        centralizarTexto("PERGUNTA: " + atual->texto);
+        centralizarTexto("PERGUNTA: " + Estetica::GREEN + atual->texto + Estetica::RESET);
+        cout << endl;
         centralizarTexto("1 - Sim | 2 - Não | 3 - Voltar | 0 - Sair");
-        int opcao; cin >> opcao; limparBufferEntrada();
+
+        int opcao = -1;
+        if (!(cin >> opcao)) {
+            cin.clear();
+            limparBufferEntrada();
+            continue;
+        }
+        limparBufferEntrada();
 
         switch (opcao) {
             case 1:
                 if (atual->sim != nullptr) {
                     historico.empilhar(atual);
                     atual = atual->sim;
-                } else { fimDoCaminho = true; }
+                } else {
+                    fimDoCaminho = true;
+                }
                 break;
+
             case 2:
                 if (atual->nao != nullptr) {
                     historico.empilhar(atual);
                     atual = atual->nao;
-                } else { fimDoCaminho = true; }
+                } else {
+                    fimDoCaminho = true;
+                }
                 break;
+
             case 3:
-                if (!historico.estaVazio()) atual = historico.desempilhar();
+                if (!historico.estaVazio()) {
+                    atual = historico.desempilhar();
+                    fimDoCaminho = false;
+                } else {
+                    cout << endl;
+                    centralizarTexto(Estetica::RED + " [!] Você já está na primeira pergunta!" + Estetica::RESET);
+                    cout << "\nPressione [Enter] para continuar...";
+                    cin.get();
+                }
                 break;
+
             case 0:
                 navegando = false;
+                break;
+
+            default:
+                centralizarTexto(Estetica::RED + " [!] Opção inválida!" + Estetica::RESET);
+                cout << "\nPressione [Enter] para continuar...";
+                cin.get();
                 break;
         }
     }

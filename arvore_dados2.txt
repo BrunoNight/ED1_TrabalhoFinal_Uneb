@@ -69,3 +69,77 @@
 1-2-2-2-1-2-2;Você prefere animes focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;1;0;0;0
 1-2-2-2-2-2-1;Você tem preferência por cartoons focados em comédia em vez de drama?;1;0;0;0
 1-2-2-2-2-2-2;Você prefere cartoons focados no medo, repulsa e paranoia em oposição à produções focadas em ação?;1;0;0;0
+
+# ===== FILMES =====
+
+1-1-1-1-2-2-1-1;Filmes de Comédia;1;0;1;0
+1-1-1-1-2-2-1-2;Filmes de Drama;1;0;2;0
+
+1-1-1-1-2-2-2-1;Filmes de Ação;1;0;0;0
+1-1-1-1-2-2-2-2;Filmes de Terror;1;0;3;0
+
+1-1-2-1-2-2-1-1;Filmes de Comédia;1;0;1;1
+1-1-2-1-2-2-1-2;Filmes de Drama;1;0;2;1
+
+1-1-2-1-2-2-2-1;Filmes de Ação;1;0;0;1
+1-1-2-1-2-2-2-2;Filmes de Terror;1;0;3;1
+
+
+# ===== SÉRIES =====
+
+1-1-1-2-2-1-1;Séries de Comédia;1;1;1;0
+1-1-1-2-2-1-2;Séries de Drama;1;1;2;0
+
+1-1-1-2-2-2-1;Séries de Ação;1;1;0;0
+1-1-1-2-2-2-2;Séries de Terror;1;1;3;0
+
+1-1-2-2-2-1-1;Séries de Comédia;1;1;1;1
+1-1-2-2-2-1-2;Séries de Drama;1;1;2;1
+
+1-1-2-2-2-2-1;Séries de Ação;1;1;0;1
+1-1-2-2-2-2-2;Séries de Terror;1;1;3;1
+
+
+# ===== DOCUMENTÁRIOS =====
+
+1-1-1-1-1-1-1-1;Documentários de Terror;1;2;3;0
+1-1-1-1-1-1-1-2;Documentários de Ação;1;2;0;0
+
+1-1-1-1-1-2-1-1;Documentários de Comédia;1;2;1;0
+1-1-1-1-1-2-1-2;Documentários de Fantasia;1;2;5;0
+
+1-1-2-1-1-1-1-1;Documentários de Terror;1;2;3;1
+1-1-2-1-1-1-1-2;Documentários de Ação;1;2;0;1
+
+1-1-2-1-1-2-1-1;Documentários de Comédia;1;2;1;1
+1-1-2-1-1-2-1-2;Documentários de Fantasia;1;2;5;1
+
+
+# ===== ANIMES =====
+
+1-2-1-2-1-2-1-1;Anime Comédia;1;3;1;0
+1-2-1-2-1-2-1-2;Anime Drama;1;3;2;0
+
+1-2-1-2-1-2-2-1;Anime Ação;1;3;0;0
+1-2-1-2-1-2-2-2;Anime Terror;1;3;3;0
+
+1-2-2-2-1-2-1-1;Anime Comédia;1;3;1;1
+1-2-2-2-1-2-1-2;Anime Drama;1;3;2;1
+
+1-2-2-2-1-2-2-1;Anime Ação;1;3;0;1
+1-2-2-2-1-2-2-2;Anime Terror;1;3;3;1
+
+
+# ===== CARTOONS =====
+
+1-2-1-2-2-2-1-1;Cartoon Comédia;1;4;1;0
+1-2-1-2-2-2-1-2;Cartoon Drama;1;4;2;0
+
+1-2-1-2-2-2-2-1;Cartoon Ação;1;4;0;0
+1-2-1-2-2-2-2-2;Cartoon Terror;1;4;3;0
+
+1-2-2-2-2-2-1-1;Cartoon Comédia;1;4;1;1
+1-2-2-2-2-2-1-2;Cartoon Drama;1;4;2;1
+
+1-2-2-2-2-2-2-1;Cartoon Ação;1;4;0;1
+1-2-2-2-2-2-2-2;Cartoon Terror;1;4;3;1
