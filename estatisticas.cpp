@@ -14,9 +14,9 @@ using namespace std;
 //  Helper interno: separador visual
 // ─────────────────────────────────────────────────────────────
 static void separador(const string& titulo) {
-    centralizarTexto("\n  \033[1;33m" + string(50, '-') + "\033[0m\n");
-    centralizarTexto("  \033[1;33m  " + titulo + "\033[0m\n");
-    centralizarTexto("  \033[1;33m" + string(50, '-') + "\033[0m\n");
+    cout << "\n  \033[1;33m" << string(50, '-') << "\033[0m\n";
+    cout << "  \033[1;33m  " << titulo << "\033[0m\n";
+    cout << "  \033[1;33m" << string(50, '-') << "\033[0m\n";
 }
 
 // ─────────────────────────────────────────────────────────────
