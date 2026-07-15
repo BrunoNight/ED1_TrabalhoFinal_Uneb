@@ -7,13 +7,14 @@
 
 // 3. Inclusão de bibliotecas criadas
 #include "conteudo.h"
+#include "estatisticas.h"
 
 // 4. Declaração de classes e structs das bibliotecas criadas para evitar inclusão cíclica
 class ListaDupla;
 class ListaSimples;
 
 // 5. Classe do nó da árvore
-class NodoA { 
+class NodoA {
     public:
         std::string texto;
         NodoA* sim; // Para a esquerda
@@ -27,7 +28,7 @@ class NodoA {
 };
 
 // 6. Classe da árvore
-class Arvore { 
+class Arvore {
     public:
         NodoA* raiz;
         Arvore(); // Construtor da árvore
@@ -35,7 +36,7 @@ class Arvore {
         void apagarArvore(NodoA* atual);
         void inserirPorCaminho(const std::string& caminho, const std::string& filtro, bool folha, int pTipo = 0, int pGenero = 0, int pCrono = 0);
         void gerarArvoreDecisao();
-        void inserirFiltrar(NodoA* atual, ListaDupla& listaCad, ListaSimples& listaRec);
+        void inserirFiltrar(NodoA* atual, ListaDupla& listaCad, ListaSimples& listaRec, Estatisticas& est);
 };
 
 #endif // ARVORE_H_INCLUDED

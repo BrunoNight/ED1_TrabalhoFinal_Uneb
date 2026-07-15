@@ -134,7 +134,7 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
             case 1: {
                 esteticaCabecalhoSistema();
                 centralizarTexto(Estetica::YELLOW + "CADASTRO DE NOVO TÍTULO" + Estetica::RESET);
-                
+
                 string titulo, tipo, genero;
                 int ano;
 
@@ -206,7 +206,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
 
         switch(opcao) {
             case 1: {
-                arv.inserirFiltrar(arv.raiz, listaCad, listaRec);
+                arv.inserirFiltrar(arv.raiz, listaCad, listaRec, est);
                 break;
             }
             case 2: {
