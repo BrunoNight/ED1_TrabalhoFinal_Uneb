@@ -5,3 +5,132 @@
 1743445502 source:c:\users\pichau\desktop\ed1_trabalhofinal\ed1_trabalhofinal_codigosbruno\main.cpp
 	<iostream>
 
+1783280281 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\pilha.cpp
+	<iostream>
+	<string>
+	"pilha.h"
+
+1783280281 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\pilha.h
+
+1784070316 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\admin.cpp
+	<iostream>
+	<iomanip>
+	"listas.h"
+	"admin.h"
+	"estetica.h"
+	"conteudo.h"
+
+1784070316 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\listas.h
+	<string>
+	<iostream>
+	"conteudo.h"
+	"usuario.h"
+
+1784070316 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\conteudo.h
+	<string>
+
+1784070317 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\usuario.h
+	<iostream>
+	<string>
+
+1784070316 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\admin.h
+	<string>
+	"listas.h"
+	"conteudo.h"
+	"usuario.h"
+
+1783891891 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\estetica.h
+	<string>
+	<cstddef>
+
+1784072953 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\arvore.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<string>
+	<algorithm>
+	"arvore.h"
+	"menu.h"
+	"estetica.h"
+	"listas.h"
+	"pilha.h"
+	"estatisticas.h"
+
+1784071212 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\arvore.h
+	<string>
+	"conteudo.h"
+	"estatisticas.h"
+
+1784070316 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\menu.h
+
+1784070316 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\conteudo.cpp
+	<iostream>
+	<iomanip>
+	"listas.h"
+	"estetica.h"
+
+1783280281 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\estatisticas.cpp
+	"listas.h"
+	"estatisticas.h"
+	<iostream>
+	<iomanip>
+	<string>
+	<climits>
+
+1783280281 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\estatisticas.h
+	<string>
+
+1784070316 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\estetica.cpp
+	<iostream>
+	<limits>
+	<string>
+	<windows.h>
+	<sys/ioctl.h>
+	<unistd.h>
+	<regex>
+	"estetica.h"
+
+1784070316 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\listas.cpp
+	<iomanip>
+	"listas.h"
+	"estetica.h"
+
+1784070316 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\main.cpp
+	<iostream>
+	<windows.h>
+	"listas.h"
+	"arvore.h"
+	"estatisticas.h"
+	"menu.h"
+	"persistencia.h"
+
+1783280281 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\persistencia.h
+	<string>
+
+1784071381 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\menu.cpp
+	<iostream>
+	<string>
+	"menu.h"
+	"arvore.h"
+	"estetica.h"
+	"admin.h"
+	"estatisticas.h"
+	"usuario.h"
+	"conteudo.h"
+
+1783280281 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\persistencia.cpp
+	"listas.h"
+	"estatisticas.h"
+	"persistencia.h"
+	<fstream>
+	<sstream>
+	<iostream>
+	<string>
+
+1784070317 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\usuario.cpp
+	<iostream>
+	<string>
+	"usuario.h"
+	"estetica.h"
+	"listas.h"
+
