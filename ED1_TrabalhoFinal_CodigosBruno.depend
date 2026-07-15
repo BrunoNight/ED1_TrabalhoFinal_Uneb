@@ -43,12 +43,13 @@
 	<string>
 	<cstddef>
 
-1784150864 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\arvore.cpp
+1784154386 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\arvore.cpp
 	<iostream>
 	<fstream>
 	<sstream>
-	<string>
 	<algorithm>
+	<iomanip>
+	<cctype>
 	"arvore.h"
 	"menu.h"
 	"estetica.h"
@@ -56,7 +57,8 @@
 	"pilha.h"
 	"estatisticas.h"
 
-1784071212 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\arvore.h
+1784152639 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\arvore.h
+	<iostream>
 	<string>
 	"conteudo.h"
 	"estatisticas.h"
@@ -110,7 +112,7 @@
 1784150864 c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\persistencia.h
 	<string>
 
-1784150864 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\menu.cpp
+1784154443 source:c:\users\pichau\desktop\bruno\educação\uneb i graduação\3_semestre\estrutura_de_dados_1\unidade_3\ed1_trabalhofinal_uneb\menu.cpp
 	<iostream>
 	<string>
 	<iomanip>

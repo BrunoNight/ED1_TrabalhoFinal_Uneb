@@ -206,7 +206,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
 
         switch(opcao) {
             case 1: {
-                arv.inserirFiltrar(arv.raiz, listaCad, listaRec, est);
+                arv.navegarArvore(listaRec, listaCad, listaAssist, est);
                 break;
             }
             case 2: {
@@ -244,7 +244,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
 
                 atual = listaCad.getCabeca();
                 Conteudo c;
-                bool encontrado = false; 
+                bool encontrado = false;
 
                 while (atual != nullptr) {
                     if(atual->conteudo.titulo == titulo) {
@@ -259,7 +259,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
 
                 if (!encontrado) {
                     centralizarTexto("\n[Erro] Título não encontrado!\n");
-                    break; 
+                    break;
                 }
 
                 system("clear || cls");
@@ -298,14 +298,14 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
                             centralizarTexto("Avalie o filme (Digite de 0 a 5): ");
                             cin >> nota;
                             limparBufferEntrada();
-                            
+
                             if (nota >= 0.0f && nota <= 5.0f) {
                                 avaliarConteudo(listaCad, listaAssist, titulo, nota);
                             } else {
                                 avaliarConteudo(listaCad, listaAssist, titulo, 3);
                             }
 
-                            opc = 2; 
+                            opc = 2;
                             continue;
                         }
                         case 2:
@@ -314,7 +314,7 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
                             cout << "Opção Inválida!\n";
                     }
                 }
-                
+
                 break;
             }
             case 4: {
