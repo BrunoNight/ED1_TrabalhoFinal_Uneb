@@ -1,6 +1,7 @@
 #include "listas.h"         // ListaDupla, ListaSimples, Conteudo, NodoDuplo
 #include "estatisticas.h"
 #include "persistencia.h"
+#include "usuario.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -83,8 +84,7 @@ bool salvarCatalogo(ListaDupla& listaCad, const string& nomeArq) {
 //  Linhas com '#' sao ignoradas.
 //  Retorna o numero de titulos carregados com sucesso.
 // ─────────────────────────────────────────────────────────────
-int carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist,
-                      const string& nomeArq) {
+int carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist, const string& nomeArq) {
     ifstream arq(nomeArq);
     if (!arq.is_open()) {
         cout << "  [Aviso] \"" << nomeArq
@@ -94,6 +94,7 @@ int carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist,
 
     string linha;
     int carregados = 0;
+    int maiorIdEncontrado = 0; // [+] Variável para rastrear o maior ID
 
     while (getline(arq, linha)) {
         // Pular linhas vazias e comentarios
@@ -114,6 +115,10 @@ int carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist,
         c.numViews  = strToInt(campos[5]);
         c.avaliacao = strToFloat(campos[6]);
 
+        if (c.id > maiorIdEncontrado) {
+            maiorIdEncontrado = c.id;
+        }
+
         // Verificar duplicata antes de inserir
         if (listaCad.buscar(c.titulo) == nullptr) {
             listaCad.inserirOrdenado(c);
@@ -123,6 +128,10 @@ int carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist,
     }
 
     arq.close();
+    
+    // [+] Sincroniza a variável de geração de ID
+    atualizarProximoId(maiorIdEncontrado);
+
     cout << "  [OK] Catalogo carregado de \"" << nomeArq
          << "\" (" << carregados << " titulo(s))\n";
     return carregados;
@@ -301,23 +310,91 @@ bool carregarEstatisticas(Estatisticas& est, const string& nomeArq) {
     return true;
 }
 
+bool salvarUsuarios(ListaUsuarios& listaU, const string& nomeArq) {
+    ofstream arq(nomeArq);
+    if (!arq.is_open()) {
+        cout << "  [ERRO] Nao foi possivel abrir \"" << nomeArq << "\" para escrita.\n";
+        return false;
+    }
+
+    arq << "# id;login;senha;tipo\n"; // Cabeçalho do CSV
+    Usuario* atual = listaU.inicio;
+    int gravados = 0;
+    
+    while (atual != nullptr) {
+        arq << atual->id << ";"
+            << atual->login << ";"
+            << atual->senha << ";"
+            << atual->tipo << "\n";
+        gravados++;
+        atual = atual->prox;
+    }
+
+    arq.close();
+    cout << "  [OK] Usuarios salvos em \"" << nomeArq << "\" (" << gravados << " conta(s))\n";
+    return true;
+}
+
+int carregarUsuarios(ListaUsuarios& listaU, const string& nomeArq) {
+    ifstream arq(nomeArq);
+    if (!arq.is_open()) {
+        cout << "  [Aviso] \"" << nomeArq << "\" nao encontrado — iniciando sem usuarios salvos.\n";
+        return 0;
+    }
+
+    string linha;
+    int carregados = 0;
+
+    while (getline(arq, linha)) {
+        if (linha.empty() || linha[0] == '#') continue;
+
+        string campos[4];
+        splitCSV(linha, campos, 4);
+
+        if (campos[1].empty()) continue; // Evita linhas zumbis
+
+        Usuario* novo = new Usuario;
+        novo->id    = strToInt(campos[0]);
+        novo->login = campos[1];
+        novo->senha = campos[2];
+        novo->tipo  = static_cast<decltype(novo->tipo)>(strToInt(campos[3])); // Converte int de volta para Enum
+        novo->prox  = nullptr;
+
+        // Insere o usuário recuperado no final da lista encadeada
+        if (listaU.inicio == nullptr) {
+            listaU.inicio = novo;
+        } else {
+            Usuario* aux = listaU.inicio;
+            while (aux->prox != nullptr) {
+                aux = aux->prox;
+            }
+            aux->prox = novo;
+        }
+        carregados++;
+    }
+
+    arq.close();
+    cout << "  [OK] Usuarios carregados de \"" << nomeArq << "\" (" << carregados << " conta(s))\n";
+    return carregados;
+}
+
 // =============================================================
 //  CONVENIENCIA: salvar/carregar tudo de uma vez
 // =============================================================
 
-void salvarTudo(ListaDupla& listaCad, ListaDupla& listaAssist,
-                Estatisticas& est) {
+void salvarTudo(ListaDupla& listaCad, ListaDupla& listaAssist, Estatisticas& est, ListaUsuarios& listaUsuarios) {
     cout << "\n  [Persistencia] Salvando estado do sistema...\n";
     salvarCatalogo(listaCad);
     salvarRanking(listaAssist);
     salvarEstatisticas(est);
+    salvarUsuarios(listaUsuarios);
 }
 
-int carregarTudo(ListaDupla& listaCad, ListaDupla& listaAssist,
-                  Estatisticas& est) {
+int carregarTudo(ListaDupla& listaCad, ListaDupla& listaAssist, Estatisticas& est, ListaUsuarios& listaUsuarios) {
     cout << "\n  [Persistencia] Carregando estado do sistema...\n";
     int n = carregarCatalogo(listaCad, listaAssist);
     if (n > 0) carregarRanking(listaCad, listaAssist);
     carregarEstatisticas(est);
+    carregarUsuarios(listaUsuarios);
     return n;
 }

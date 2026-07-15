@@ -1,15 +1,16 @@
 // 1. Inclusão de bibliotecas existentes
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 // 2. Inclusão de bibliotecas criadas
 #include "menu.h"
 #include "arvore.h"
 #include "estetica.h"
-#include "admin.h"
 #include "estatisticas.h"
 #include "usuario.h"
 #include "conteudo.h"
+#include "listas.h"
 
 // 3. Evitar escrever "std::" toda vez que aparece casos que envolvem string
 using namespace std;
@@ -191,12 +192,13 @@ void povAdministrador(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla&
 void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, Arvore& arv, Estatisticas& est) {
     int opcao = 0;
 
-    while(opcao != 3) {
+    while(opcao != 4) {
         esteticaCabecalhoSistema();
         centralizarTexto(Estetica::GREEN + "--- BEM-VINDO AO MEUFLIX ---");
         centralizarTexto("1 - Iniciar Recomendação (Árvore)");
         centralizarTexto("2 - Ver Ranking Mais Assistidos");
-        centralizarTexto("3 - Sair");
+        centralizarTexto("3 - Listar Conteúdos");
+        centralizarTexto("4 - Sair");
 
         centralizarTexto("\nEscolha uma opção: ");
         cin >> opcao;
@@ -212,6 +214,110 @@ void povUsuarioComum(Usuario* usuarioLogado, ListaUsuarios& ListaU, ListaDupla& 
                 break;
             }
             case 3: {
+                if (listaCad.getCabeca() == nullptr) {
+                    centralizarTexto("  [Lista vazia]\n");
+                    break;
+                }
+
+                cout << left << " "
+                    << setw(4) << "Id"
+                    << setw(32) << "Titulo"
+                    << setw(14) << "Visualizações\n";
+                    cout << " " + string(78, '-') + "\n";
+
+                NodoDuplo* atual = listaCad.getCabeca();
+
+                while (atual != nullptr) {
+                    Conteudo& c = atual->conteudo;
+                    cout << " " << left
+                        << setw(4) << c.id
+                        << setw(32) << c.titulo
+                        << setw(14) << c.numViews
+                        << "\n";
+
+                    atual = atual->proximo;
+                }
+
+                centralizarTexto("Selecione conteúdo (digite o título): ");
+                string titulo;
+                getline(cin, titulo);
+
+                atual = listaCad.getCabeca();
+                Conteudo c;
+                bool encontrado = false; 
+
+                while (atual != nullptr) {
+                    if(atual->conteudo.titulo == titulo) {
+                        c = atual->conteudo;
+                        encontrado = true;
+                        break;
+                    }
+                    atual = atual->proximo;
+                }
+
+
+
+                if (!encontrado) {
+                    centralizarTexto("\n[Erro] Título não encontrado!\n");
+                    break; 
+                }
+
+                system("clear || cls");
+
+                cout << left << " " << setw(5) << "ID"
+                    << setw(32) << "Nome"
+                    << setw(14) << "Tipo"
+                    << setw(18) << "Gênero"
+                    << right << "Visualizações\n";
+
+                    cout << " " + string(78, '-') + "\n";
+
+                    cout << " " << left << setw(5) << ("#" + to_string(c.id))
+                        << setw(32) << c.titulo
+                        << setw(14) << c.tipo
+                        << setw(18) << c.genero
+                        << right << std::setw(8) << c.numViews << "\n";
+
+                int opc = 0;
+
+                centralizarTexto("1. Assistir");
+                centralizarTexto("2. Voltar ao menu");
+
+                while(opc != 2) {
+                    cout << "Selecione uma das opções: ";
+                    cin >> opc;
+                    limparBufferEntrada();
+
+                    switch(opc) {
+                        case 1: {
+                            assistirConteudo(listaCad, listaAssist, titulo);
+                            registrarRecomendacao(est, c.tipo, c.genero);
+
+                            float nota = -1.0f;
+                            cout << "\n";
+                            centralizarTexto("Avalie o filme (Digite de 0 a 5): ");
+                            cin >> nota;
+                            limparBufferEntrada();
+                            
+                            if (nota >= 0.0f && nota <= 5.0f) {
+                                avaliarConteudo(listaCad, listaAssist, titulo, nota);
+                            } else {
+                                avaliarConteudo(listaCad, listaAssist, titulo, 3);
+                            }
+
+                            opc = 2; 
+                            continue;
+                        }
+                        case 2:
+                            continue;
+                        default:
+                            cout << "Opção Inválida!\n";
+                    }
+                }
+                
+                break;
+            }
+            case 4: {
                 cout << "\n[Saindo do sistema...]";
                 return;
             }

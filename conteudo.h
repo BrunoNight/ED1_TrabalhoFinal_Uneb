@@ -29,6 +29,7 @@ typedef struct Conteudo {
 // // 6.1. CADASTRAR CONTE�DOS
 void cadastrarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, std::string titulo, std::string tipo, std::string genero, int ano);
 int gerarNovoId();
+void atualizarProximoId(int maiorId);
 // // 6.2. REMOVER CONTE�DOS
 void removerConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, std::string titulo);
 // // 6.3. LISTAR CONTE�DOS
@@ -37,6 +38,7 @@ void listaRecomendados(ListaSimples& listaRec);
 void listaMaisAssistidos(ListaDupla& listaAssist);
 // // 6.4. ASSISTIR CONTE�DOS
 void assistirConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, std::string titulo);
+void avaliarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, std::string titulo, float nota);
 
 #endif // CONTEUDO_H_INCLUDED
 

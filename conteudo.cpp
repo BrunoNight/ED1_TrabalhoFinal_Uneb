@@ -40,6 +40,12 @@ int gerarNovoId() {
     return proximoId++;
 }
 
+void atualizarProximoId(int maiorId) {
+    if (maiorId >= proximoId) {
+        proximoId = maiorId + 1;
+    }
+}
+
 // 7. Função para remover conteúdo
 void removerConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, ListaSimples& listaRec, string titulo) {
     bool okCad = listaCad.remover(titulo);
@@ -98,5 +104,25 @@ void assistirConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string titu
     NodoDuplo* no = listaCad.buscar(titulo);
     if (no) {
         centralizarTexto("  >> Assistindo: \"" + titulo + "\"  |  Views totais: " + to_string(no->conteudo.numViews) + "\n"); // AJUSTADO PARA CENTRALIZAÇÃO DE TEXTO
+    }
+}
+
+void avaliarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string titulo, float nota) {
+    // Buscamos o título em ambas as listas para manter as informações sincronizadas
+    NodoDuplo* noCad = listaCad.buscar(titulo);
+    NodoDuplo* noAssist = listaAssist.buscar(titulo);
+
+    if (noCad != nullptr) {
+        // Calcula a nova média: ((Média Antiga * Avaliações Antigas) + Nova Nota) / Novas Avaliações Totais
+        float somaNotas = (noCad->conteudo.avaliacao * (noCad->conteudo.numViews- 1)) + nota;
+        noCad->conteudo.avaliacao = somaNotas / noCad->conteudo.numViews;
+
+        // Como a lista de Assistidos possui cópias dos nós, precisamos espelhar o valor nela
+        if (noAssist != nullptr) {
+            noAssist->conteudo.avaliacao = noCad->conteudo.avaliacao;
+        }
+
+        cout << "\n";
+        centralizarTexto("  [Sucesso] Avaliação registrada! A média atual é " + to_string(noCad->conteudo.avaliacao).substr(0,3) + " estrelas.\n");
     }
 }

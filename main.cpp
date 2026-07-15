@@ -34,7 +34,7 @@ int main() {
     // Inicializa a árvore a partir do arquivo de texto txt
     arvoreDecisao.gerarArvoreDecisao();
     // Carrega o catálogo, o ranking e as estatísticas
-    carregarTudo(listaCad, listaAssist, est);
+    carregarTudo(listaCad, listaAssist, est, listaUsuarios);
     // Cadastrar um Administrador padrão
     cadastrarUsuario(listaUsuarios, "admin", "uneb123", ADMINISTRADOR);
     // Cadastrar um Utilizador Comum padrão
@@ -44,7 +44,7 @@ int main() {
     // Passar todas as estruturas essenciais
     executarSistema(listaUsuarios, listaCad, listaAssist, listaRec, arvoreDecisao, est);
     // Salva o estado atual do catálogo, ranking e estatísticas ao encerrar o sistema
-    salvarTudo(listaCad, listaAssist, est);
+    salvarTudo(listaCad, listaAssist, est, listaUsuarios);
 
     return 0;
 }
