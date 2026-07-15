@@ -182,17 +182,17 @@ void ListaDupla::inserirNo(NodoDuplo* no) {
 
     // Caso 3: avança enquanto o próximo tem visualizações maiores
     NodoDuplo* atual = cabeca;
-    while (atual->proximo != nullptr && atual->proximo->conteudo.numViews > no->conteudo.numViews) {
+    while (atual->proximo != nullptr && atual->proximo->conteudo.numViews >= no->conteudo.numViews) {
         atual = atual->proximo;
     }
 
-    // Insere após 'atual'
-    no->proximo  = atual->proximo;
-    no->anterior = atual;
-
     if (atual->proximo != nullptr) {
+        no->proximo  = atual->proximo;
+        no->anterior = atual;
         atual->proximo->anterior = no;
     } else {
+        no->proximo  = nullptr;
+        no->anterior = atual;
         cauda = no; // novo nó virou cauda
     }
 
