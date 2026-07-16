@@ -32,8 +32,6 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="admin.cpp" />
-		<Unit filename="admin.h" />
 		<Unit filename="arvore.cpp" />
 		<Unit filename="arvore.h" />
 		<Unit filename="conteudo.cpp" />

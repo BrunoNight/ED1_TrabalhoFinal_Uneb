@@ -12,10 +12,9 @@ struct Estatisticas;
 // Grava listaCad em disco; cria o arquivo se nao existir
 bool salvarCatalogo(ListaDupla& listaCad, const std::string& nomeArq = "data/catalogo.csv");
 
-// Carrega catalogo do disco e popula listaCad E listaAssist
-// Retorna o numero de titulos carregados (0 se arquivo nao existe)
-int  carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist,
-                      const std::string& nomeArq = "data/catalogo.csv");
+// Carrega catalogo do disco e popula listaCad e listaAssist
+// Retorna o numero de titulos carregados
+int  carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist, const std::string& nomeArq = "data/catalogo.csv");
 
 // ── Ranking (listaAssist) ────────────────────────────────────
 // Salva apenas as views atualizadas de cada titulo em listaAssist

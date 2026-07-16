@@ -21,70 +21,36 @@ using namespace std;
 static const string bordaA(50, '-');
 static const string bordaB(20, '=');
 
-// 5. Função para comparar tipos ou gêneros com verificação de casos nas palavras
-static bool compararTiposOuGeneros(string s1, string s2)
-{
-    if(s1.empty() || s2.empty())
-    {
+// 5. Função para comparar tipos ou gêneros ignorando maiúsculas, minúsculas e diferenças de acentuação
+static bool compararTiposOuGeneros(string s1, string s2) {
+    if(s1.empty() || s2.empty()) {
         return false;
     }
 
-    transform(
-        s1.begin(),
-        s1.end(),
-        s1.begin(),
-        ::tolower
-    );
+    transform ( s1.begin(), s1.end(), s1.begin(), ::tolower);
+    transform(s2.begin(), s2.end(), s2.begin(), ::tolower);
 
-    transform(
-        s2.begin(),
-        s2.end(),
-        s2.begin(),
-        ::tolower
-    );
-
-    if(s1 == s2)
-    {
+    if(s1 == s2) {
         return true;
     }
 
-    if(
-        (s2 == "serie" &&
-         s1.find("série") != string::npos)
-    )
-    {
+    if((s2 == "serie" && s1.find("série") != string::npos)) {
         return true;
     }
 
-    if(
-        (s2 == "acao" &&
-         s1.find("ação") != string::npos)
-    )
-    {
+    if((s2 == "acao" && s1.find("ação") != string::npos)) {
         return true;
     }
 
-    if(
-        (s2 == "comedia" &&
-         s1.find("comédia") != string::npos)
-    )
-    {
+    if((s2 == "comedia" && s1.find("comédia") != string::npos)) {
         return true;
     }
 
-    if(
-        (s2 == "documentario" &&
-         s1.find("documentário") != string::npos)
-    )
-    {
+    if((s2 == "documentario" && s1.find("documentário") != string::npos)) {
         return true;
     }
 
-    if(
-        (s2 == "ficcao" &&
-         s1.find("ficção") != string::npos)
-    )
-    {
+    if((s2 == "ficcao" && s1.find("ficção") != string::npos)) {
         return true;
     }
 
@@ -115,77 +81,45 @@ static string generoParaString(GeneroConteudo g) {
     }
 }
 
+// 7. Função auxiliar para verificar se uma palavra ou expressão está contida em um texto,
+// ignorando diferenças entre letras maiúsculas e minúsculas
 static bool contemTexto(string texto, string busca) {
     transform(texto.begin(), texto.end(), texto.begin(), ::tolower);
     transform(busca.begin(), busca.end(), busca.begin(), ::tolower);
     return texto.find(busca) != string::npos;
 }
 
-// 7. Função principal de validação do filtro
-static bool conteudoAtendeFiltro(
-    const Conteudo& c,
-    NodoA* no
-)
-{
-    if(no == nullptr)
-    {
+// 8. Função de validação dos filtros da árvore
+static bool conteudoAtendeFiltro(const Conteudo& c, NodoA* no) {
+    if(no == nullptr) {
         return false;
     }
 
-    if(no->tipoFiltro != QUALQUER_TIPO)
-    {
-        string tipoDesejado =
-            tipoParaString(no->tipoFiltro);
+    if(no -> tipoFiltro != QUALQUER_TIPO) {
+        string tipoDesejado = tipoParaString(no -> tipoFiltro);
 
-        if(
-            !compararTiposOuGeneros(
-                c.tipo,
-                tipoDesejado
-            )
-        )
-        {
+        if(!compararTiposOuGeneros(c.tipo, tipoDesejado)) {
             return false;
         }
     }
 
-    if(no->generoFiltro != QUALQUER_GENERO)
-    {
-        string generoDesejado =
-            generoParaString(
-                no->generoFiltro
-            );
+    if(no -> generoFiltro != QUALQUER_GENERO) {
+        string generoDesejado = generoParaString(no->generoFiltro);
 
-        if(
-            !compararTiposOuGeneros(
-                c.genero,
-                generoDesejado
-            )
-        )
-        {
+        if(!compararTiposOuGeneros(c.genero, generoDesejado)) {
             return false;
         }
     }
 
-    if(no->cronologiaFiltro != QUALQUER_ANO)
-    {
-        if(
-            no->cronologiaFiltro ==
-            RECENTE
-        )
-        {
-            if(c.ano < 2000)
-            {
+    if(no -> cronologiaFiltro != QUALQUER_ANO) {
+        if(no -> cronologiaFiltro == RECENTE) {
+            if(c.ano < 2000) {
                 return false;
             }
         }
 
-        if(
-            no->cronologiaFiltro ==
-            ANTIGO
-        )
-        {
-            if(c.ano >= 2000)
-            {
+        if(no -> cronologiaFiltro == ANTIGO) {
+            if(c.ano >= 2000) {
                 return false;
             }
         }
@@ -195,7 +129,7 @@ static bool conteudoAtendeFiltro(
 }
 
 
-// 8. Função auxiliar para converter string para int em segurança
+// 9. Função auxiliar para converter string para int em segurança
 static int converterParaInt(const string& valor, int valorPadrao) {
     if(valor.empty()) {
         return valorPadrao;
@@ -211,17 +145,17 @@ static int converterParaInt(const string& valor, int valorPadrao) {
     return resultado;
 }
 
-// 9. Função de construtor da Árvore
+// 10. Função de construtor da Árvore
 Arvore::Arvore() {
     raiz = nullptr;
 }
 
-// 10. Função de destrutor da Árvore
+// 11. Função de destrutor da Árvore
 Arvore::~Arvore() {
     apagarArvore(raiz);
 }
 
-// 11. Função para limpar memória da árvore
+// 12. Função para limpar memória da árvore
 void Arvore::apagarArvore(NodoA* atual) {
     if(atual != nullptr) {
         apagarArvore(atual -> sim);
@@ -230,7 +164,7 @@ void Arvore::apagarArvore(NodoA* atual) {
     }
 }
 
-// 12. Função para montagem da árvore a partir da string de caminho do arquivo txt (Ex: "1-1-2")
+// 13. Função para montagem da árvore a partir da string de caminho do arquivo txt (Ex: "1-1-2")
 void Arvore::inserirPorCaminho(const string& caminho, const string& texto, bool folha, int pTipo, int pGenero, int pCrono) {
     if(caminho.empty()) {
         return;
@@ -280,7 +214,7 @@ void Arvore::inserirPorCaminho(const string& caminho, const string& texto, bool 
     }
 }
 
-// 13. Função para leitura do arquivo txt e geração da Árvore
+// 14. Função para leitura do arquivo txt e geração da Árvore
 void Arvore::gerarArvoreDecisao() {
     ifstream arq("arvore_dados.txt");
     if(!arq.is_open()) {
@@ -334,7 +268,7 @@ void Arvore::gerarArvoreDecisao() {
     arq.close();
 }
 
-// 14. Navegação Interativa da Árvore com Pilha
+// 15. Navegação Interativa da Árvore com Pilha
 void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDupla& listaAssist, Estatisticas& est) {
     if (raiz == nullptr) {
         centralizarTexto(Estetica::RED + "\n [Erro] A árvore de recomendação está vazia!" + Estetica::RESET);
@@ -344,9 +278,9 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
     Pilha historico;
     NodoA* atual = raiz;
     bool navegando = true;
-    bool fimDoCaminho = false; // Variável de controle local para não alterar a estrutura da árvore
+    bool fimDoCaminho = false;
 
-    while (navegando && atual != nullptr) {
+    while(navegando && atual != nullptr) {
         system("clear || cls");
         esteticaCabecalhoSistema();
         cout << endl;
@@ -356,12 +290,11 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
         cout << endl;
 
         // Verifica se chegou ao fim ou se é uma folha real
-        if (fimDoCaminho || atual->folha || (atual->sim == nullptr && atual->nao == nullptr)) {
+        if(fimDoCaminho || atual -> folha || (atual -> sim == nullptr && atual -> nao == nullptr)) {
             centralizarTexto(Estetica::YELLOW + "★ RESULTADO DA SUA PESQUISA ★" + Estetica::RESET);
             cout << endl;
 
-            // CORREÇÃO: Evita exibir texto de pergunta como se fosse critério selecionado
-            if (atual->folha) {
+            if(atual->folha) {
                 centralizarTexto("Critério selecionado: " + Estetica::GREEN + atual->texto + Estetica::RESET);
             } else {
                 centralizarTexto("Status: " + Estetica::YELLOW + "Fim da linha de navegação (Exibindo por aproximação)" + Estetica::RESET);
@@ -373,17 +306,17 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
             NodoDuplo* noAux = listaCad.getCabeca();
 
             cout << left << "  " << setw(5) << "ID" << setw(32) << "Título" << setw(14) << "Tipo" << setw(16) << "Gênero" << right << "Ano\n";
-            while (noAux != nullptr) {
+            while(noAux != nullptr) {
                 // Lógica de comparação com função de filtro existente
-                if (conteudoAtendeFiltro(noAux->conteudo, atual)) {
-                    cout << "  " << left << setw(5) << ("#" + to_string(noAux->conteudo.id))
+                if (conteudoAtendeFiltro(noAux -> conteudo, atual)) {
+                    cout << "  " << left << setw(5) << ("#" + to_string(noAux -> conteudo.id))
                          << setw(32) << noAux->conteudo.titulo
                          << setw(14) << noAux->conteudo.tipo
                          << setw(16) << noAux->conteudo.genero
                          << right << setw(4) << noAux->conteudo.ano << "\n";
                     encontrouAlgum = true;
                 }
-                noAux = noAux->proximo;
+                noAux = noAux -> proximo;
             }
 
             if (!encontrouAlgum) {
@@ -391,7 +324,7 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
             }
 
             cout << endl;
-            centralizarTexto("1 - Assistir a um título | 2 - Voltar | 0 - Menu Principal");
+            centralizarTexto("1 - Assistir a um título | 2 - Voltar | 3 - Menu Principal");
             int opc = -1;
             if (!(cin >> opc)) {
                 cin.clear();
@@ -400,40 +333,36 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
             }
             limparBufferEntrada();
 
-            if (opc == 1) {
+            if(opc == 1) {
                 cout << "\n";
                 centralizarTexto("Digite o título que deseja assistir: ");
                 string tit;
                 getline(cin, tit);
                 assistirConteudo(listaCad, listaAssist, tit);
-                cout << "\nPressione [Enter] para continuar...";
+                centralizarTexto("\nPressione [Enter] para continuar...");
                 cin.get();
-            } else if (opc == 2) {
-                // CORREÇÃO: Tratamento inteligente do "Voltar" na tela de resultados
+            } else if(opc == 2) {
                 if (fimDoCaminho) {
-                    // Se entrou por ramo nulo, o ponteiro atual não mudou nem foi empilhado.
-                    // Apenas desligamos a flag para reexibir a mesma pergunta exatamente onde estava.
                     fimDoCaminho = false;
-                } else if (!historico.estaVazio()) {
-                    // Se era uma folha real cadastrada no arquivo, desempilha a pergunta anterior.
+                } else if(!historico.estaVazio()) {
                     atual = historico.desempilhar();
                     fimDoCaminho = false;
                 } else {
                     cout << endl;
                     centralizarTexto(Estetica::RED + " [!] Você já está no início da árvore!" + Estetica::RESET);
-                    cout << "\nPressione [Enter] para continuar...";
+                    centralizarTexto("\nPressione [Enter] para continuar...");
                     cin.get();
                 }
-            } else if (opc == 0) {
+            } else if(opc == 3) {
                 navegando = false;
             }
             continue;
         }
 
         // Caso contrário, mostra a pergunta
-        centralizarTexto("PERGUNTA: " + Estetica::GREEN + atual->texto + Estetica::RESET);
+        centralizarTexto("PERGUNTA: " + Estetica::GREEN + atual -> texto + Estetica::RESET);
         cout << endl;
-        centralizarTexto("1 - Sim | 2 - Não | 3 - Voltar | 0 - Sair");
+        centralizarTexto("1 - Sim | 2 - Não | 3 - Voltar | 4 - Sair");
 
         int opcao = -1;
         if (!(cin >> opcao)) {
@@ -443,44 +372,44 @@ void Arvore::navegarArvore(ListaSimples& listaRec, ListaDupla& listaCad, ListaDu
         }
         limparBufferEntrada();
 
-        switch (opcao) {
+        switch(opcao) {
             case 1:
-                if (atual->sim != nullptr) {
+                if (atual -> sim != nullptr) {
                     historico.empilhar(atual);
-                    atual = atual->sim;
+                    atual = atual -> sim;
                 } else {
                     fimDoCaminho = true;
                 }
                 break;
 
             case 2:
-                if (atual->nao != nullptr) {
+                if (atual -> nao != nullptr) {
                     historico.empilhar(atual);
-                    atual = atual->nao;
+                    atual = atual -> nao;
                 } else {
                     fimDoCaminho = true;
                 }
                 break;
 
             case 3:
-                if (!historico.estaVazio()) {
+                if(!historico.estaVazio()) {
                     atual = historico.desempilhar();
                     fimDoCaminho = false;
                 } else {
                     cout << endl;
                     centralizarTexto(Estetica::RED + " [!] Você já está na primeira pergunta!" + Estetica::RESET);
-                    cout << "\nPressione [Enter] para continuar...";
+                    centralizarTexto("\nPressione [Enter] para continuar...");
                     cin.get();
                 }
                 break;
 
-            case 0:
+            case 4:
                 navegando = false;
                 break;
 
             default:
                 centralizarTexto(Estetica::RED + " [!] Opção inválida!" + Estetica::RESET);
-                cout << "\nPressione [Enter] para continuar...";
+                centralizarTexto("\nPressione [Enter] para continuar...");
                 cin.get();
                 break;
         }

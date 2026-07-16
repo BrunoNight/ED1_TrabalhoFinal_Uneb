@@ -1,4 +1,5 @@
 # Sistema de Streaming MEUFLIX - Catalogo
 # id;titulo;tipo;genero;ano;numViews;avaliacao
+3;c;série;terror;1997;2;5.000000
+4;d;série;terror;1990;1;5.000000
 1;a;anime;terror;2009;0;0.000000
-2;b;anime;ação;2009;0;0.000000

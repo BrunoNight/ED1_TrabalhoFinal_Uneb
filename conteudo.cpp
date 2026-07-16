@@ -107,6 +107,7 @@ void assistirConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string titu
     }
 }
 
+// 12. Função para avaliar conteúdos
 void avaliarConteudo(ListaDupla& listaCad, ListaDupla& listaAssist, string titulo, float nota) {
     // Buscamos o título em ambas as listas para manter as informações sincronizadas
     NodoDuplo* noCad = listaCad.buscar(titulo);

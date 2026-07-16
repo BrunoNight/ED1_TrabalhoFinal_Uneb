@@ -3,7 +3,6 @@
 
 #include <string>
 
-// FIX: era "class ListaContCad" -- tipo inexistente no projeto
 class ListaDupla;
 
 // Struct de contadores acumulados em tempo real
@@ -27,9 +26,7 @@ typedef struct Estatisticas {
 } Estatisticas;
 
 // Chamado ao assistir um titulo: incrementa contadores corretos
-void registrarRecomendacao(Estatisticas& est,
-                            const std::string& tipo,
-                            const std::string& genero);
+void registrarRecomendacao(Estatisticas& est, const std::string& tipo, const std::string& genero);
 
 // Totais gerais
 int recomendacoesTotais(Estatisticas& est);
@@ -37,14 +34,13 @@ int visualizacoesTotais(Estatisticas& est);
 
 // Tipo mais/menos recomendado (por contagem de recomendacoes)
 void tipoMaisRecomendado (Estatisticas& est);
-void tipoMenosRecomendado(Estatisticas& est);  // FIX: ausente no original
+void tipoMenosRecomendado(Estatisticas& est);
 
 // Genero mais/menos recomendado
 void generoMaisRecomendado (Estatisticas& est);
-void generoMenosRecomendado(Estatisticas& est); // FIX: ausente no original
+void generoMenosRecomendado(Estatisticas& est);
 
 // Titulo mais assistido por tipo / por genero (varre listaCad)
-// FIX: eram "ListaContCad" -- tipo inexistente
 void tipoMaisAssistido  (ListaDupla& listaCad, Estatisticas& est);
 void generoMaisAssistido(ListaDupla& listaCad, Estatisticas& est);
 

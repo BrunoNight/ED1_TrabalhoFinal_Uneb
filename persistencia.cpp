@@ -9,9 +9,7 @@
 
 using namespace std;
 
-// ─────────────────────────────────────────────────────────────
-//  Helper: converte string para float de forma segura
-// ─────────────────────────────────────────────────────────────
+//  Converte string para float de forma segura
 static float strToFloat(const string& s) {
     try { return stof(s); } catch (...) { return 0.0f; }
 }
@@ -20,9 +18,7 @@ static int strToInt(const string& s) {
     try { return stoi(s); } catch (...) { return 0; }
 }
 
-// ─────────────────────────────────────────────────────────────
-//  Helper: divide linha CSV pelo separador ';'
-// ─────────────────────────────────────────────────────────────
+//  Divide linha CSV pelo separador ';'
 static void splitCSV(const string& linha, string campos[], int maxCampos) {
     stringstream ss(linha);
     string token;
@@ -32,10 +28,7 @@ static void splitCSV(const string& linha, string campos[], int maxCampos) {
     }
 }
 
-// =============================================================
 //  CATALOGO
-// =============================================================
-
 // ─────────────────────────────────────────────────────────────
 //  salvarCatalogo
 //
@@ -128,7 +121,7 @@ int carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist, const string
     }
 
     arq.close();
-    
+
     // [+] Sincroniza a variável de geração de ID
     atualizarProximoId(maiorIdEncontrado);
 
@@ -137,10 +130,7 @@ int carregarCatalogo(ListaDupla& listaCad, ListaDupla& listaAssist, const string
     return carregados;
 }
 
-// =============================================================
 //  RANKING (listaAssist — persistencia das views atualizadas)
-// =============================================================
-
 // ─────────────────────────────────────────────────────────────
 //  salvarRanking
 //
@@ -231,10 +221,7 @@ int carregarRanking(ListaDupla& listaCad, ListaDupla& listaAssist,
     return atualizados;
 }
 
-// =============================================================
 //  ESTATISTICAS
-// =============================================================
-
 // ─────────────────────────────────────────────────────────────
 //  salvarEstatisticas
 //
@@ -310,6 +297,10 @@ bool carregarEstatisticas(Estatisticas& est, const string& nomeArq) {
     return true;
 }
 
+//  USUÁRIOS
+// ─────────────────────────────────────────────────────────────
+//  salvarUsuarios
+// ─────────────────────────────────────────────────────────────
 bool salvarUsuarios(ListaUsuarios& listaU, const string& nomeArq) {
     ofstream arq(nomeArq);
     if (!arq.is_open()) {
@@ -320,7 +311,7 @@ bool salvarUsuarios(ListaUsuarios& listaU, const string& nomeArq) {
     arq << "# id;login;senha;tipo\n"; // Cabeçalho do CSV
     Usuario* atual = listaU.inicio;
     int gravados = 0;
-    
+
     while (atual != nullptr) {
         arq << atual->id << ";"
             << atual->login << ";"
@@ -335,6 +326,9 @@ bool salvarUsuarios(ListaUsuarios& listaU, const string& nomeArq) {
     return true;
 }
 
+// ─────────────────────────────────────────────────────────────
+//  carregarUsuarios
+// ─────────────────────────────────────────────────────────────
 int carregarUsuarios(ListaUsuarios& listaU, const string& nomeArq) {
     ifstream arq(nomeArq);
     if (!arq.is_open()) {
@@ -378,10 +372,7 @@ int carregarUsuarios(ListaUsuarios& listaU, const string& nomeArq) {
     return carregados;
 }
 
-// =============================================================
-//  CONVENIENCIA: salvar/carregar tudo de uma vez
-// =============================================================
-
+//  Salvar/carregar tudo de uma vez
 void salvarTudo(ListaDupla& listaCad, ListaDupla& listaAssist, Estatisticas& est, ListaUsuarios& listaUsuarios) {
     cout << "\n  [Persistencia] Salvando estado do sistema...\n";
     salvarCatalogo(listaCad);

@@ -1,27 +1,23 @@
-#include "listas.h"        // contem ListaDupla, ListaSimples, Conteudo
+#include "listas.h"
 #include "estatisticas.h"
 #include "estetica.h"
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <algorithm>       // Para std::transform
-#include <cctype>          // Para std::tolower
-#include <climits>         // INT_MAX para menor valor inicial
+#include <algorithm> // Para std::transform
+#include <cctype> // Para std::tolower
+#include <climits> // INT_MAX para menor valor inicial
 
 using namespace std;
 
-// ─────────────────────────────────────────────────────────────
-//  Helper interno: separador visual
-// ─────────────────────────────────────────────────────────────
+//  Separador visual
 static void separador(const string& titulo) {
     cout << "\n  \033[1;33m" << string(50, '-') << "\033[0m\n";
     cout << "  \033[1;33m  " << titulo << "\033[0m\n";
     cout << "  \033[1;33m" << string(50, '-') << "\033[0m\n";
 }
 
-// ─────────────────────────────────────────────────────────────
-//  Helper interno: Converte uma string para minúsculas
-// ─────────────────────────────────────────────────────────────
+//  Converte uma string para minúsculas
 static string paraMinusculo(string str) {
     transform(str.begin(), str.end(), str.begin(), [](unsigned char c) {
         return tolower(c);
@@ -29,9 +25,7 @@ static string paraMinusculo(string str) {
     return str;
 }
 
-// ─────────────────────────────────────────────────────────────
-//  Helper interno: retorna o nome do tipo com maior contagem
-// ─────────────────────────────────────────────────────────────
+//  Retorna o nome do tipo com maior contagem
 static string tipoComMaiorContagem(Estatisticas& est) {
     int vals[5] = { est.recFilme, est.recSerie, est.recDocumentario,
                     est.recAnime, est.recCartoon };
@@ -51,6 +45,7 @@ static string tipoComMaiorContagem(Estatisticas& est) {
     return nomes[idxMax];
 }
 
+//  Retorna o nome do tipo com menor contagem
 static string tipoComMenorContagem(Estatisticas& est) {
     int vals[5] = { est.recFilme, est.recSerie, est.recDocumentario,
                     est.recAnime, est.recCartoon };
@@ -71,6 +66,7 @@ static string tipoComMenorContagem(Estatisticas& est) {
     return nomes[idxMin];
 }
 
+//  Retorna o nome do gênero com maior contagem
 static string generoComMaiorContagem(Estatisticas& est) {
     int vals[6] = { est.recAcao, est.recComedia, est.recDrama,
                     est.recTerror, est.recFicCientifica, est.recFantasia };
@@ -88,6 +84,7 @@ static string generoComMaiorContagem(Estatisticas& est) {
     return nomes[idxMax];
 }
 
+//  Retorna o nome do gênero com menor contagem
 static string generoComMenorContagem(Estatisticas& est) {
     int vals[6] = { est.recAcao, est.recComedia, est.recDrama,
                     est.recTerror, est.recFicCientifica, est.recFantasia };
@@ -105,12 +102,8 @@ static string generoComMenorContagem(Estatisticas& est) {
     return nomes[idxMin];
 }
 
-// =============================================================
-//  REGISTRO EM TEMPO REAL (CORRIGIDO CASE-INSENSITIVE)
-// =============================================================
-void registrarRecomendacao(Estatisticas& est,
-                            const string& tipo,
-                            const string& genero) {
+//  REGISTRO EM TEMPO REAL
+void registrarRecomendacao(Estatisticas& est, const string& tipo, const string& genero) {
     est.totRecomendacoes++;
     est.totVisualizacoes++;
 
@@ -118,7 +111,7 @@ void registrarRecomendacao(Estatisticas& est,
     string tipoBusca = paraMinusculo(tipo);
     string generoBusca = paraMinusculo(genero);
 
-    // ── Tipo (Busca Segura) ──────────────────────────────────
+    // Tipo
     if      (tipoBusca.find("filme")        != string::npos) est.recFilme++;
     else if (tipoBusca.find("serie")        != string::npos ||
              tipoBusca.find("série")        != string::npos) est.recSerie++;
@@ -127,7 +120,7 @@ void registrarRecomendacao(Estatisticas& est,
     else if (tipoBusca.find("anime")        != string::npos) est.recAnime++;
     else if (tipoBusca.find("cartoon")      != string::npos) est.recCartoon++;
 
-    // ── Genero (Busca Segura com tratamento de acentuação) ────
+    // Gênero
     if      (generoBusca.find("acao")       != string::npos ||
              generoBusca.find("ação")       != string::npos) est.recAcao++;
     else if (generoBusca.find("comedia")    != string::npos ||
@@ -139,9 +132,7 @@ void registrarRecomendacao(Estatisticas& est,
     else if (generoBusca.find("fantasia")    != string::npos) est.recFantasia++;
 }
 
-// =============================================================
 //  TOTAIS GERAIS
-// =============================================================
 int recomendacoesTotais(Estatisticas& est) {
     return est.totRecomendacoes;
 }
@@ -150,9 +141,7 @@ int visualizacoesTotais(Estatisticas& est) {
     return est.totVisualizacoes;
 }
 
-// =============================================================
 //  TIPO MAIS / MENOS RECOMENDADO
-// =============================================================
 void tipoMaisRecomendado(Estatisticas& est) {
     separador("TIPO MAIS RECOMENDADO");
 
@@ -178,9 +167,7 @@ void tipoMenosRecomendado(Estatisticas& est) {
     cout << "  \033[1;31m>>> Menos recomendado: " << menos << "\033[0m\n";
 }
 
-// =============================================================
 //  GENERO MAIS / MENOS RECOMENDADO
-// =============================================================
 void generoMaisRecomendado(Estatisticas& est) {
     separador("GENERO MAIS RECOMENDADO");
 
@@ -207,9 +194,7 @@ void generoMenosRecomendado(Estatisticas& est) {
     cout << "  \033[1;31m>>> Menos recomendado: " << menos << "\033[0m\n";
 }
 
-// =============================================================
 //  TITULO MAIS ASSISTIDO POR TIPO
-// =============================================================
 void tipoMaisAssistido(ListaDupla& listaCad, Estatisticas& est) {
     (void)est;
     separador("TITULO MAIS ASSISTIDO POR TIPO");
@@ -244,9 +229,7 @@ void tipoMaisAssistido(ListaDupla& listaCad, Estatisticas& est) {
     }
 }
 
-// =============================================================
 //  TITULO MAIS ASSISTIDO POR GENERO
-// =============================================================
 void generoMaisAssistido(ListaDupla& listaCad, Estatisticas& est) {
     (void)est;
     separador("TITULO MAIS ASSISTIDO POR GENERO");
@@ -282,9 +265,7 @@ void generoMaisAssistido(ListaDupla& listaCad, Estatisticas& est) {
     }
 }
 
-// =============================================================
 //  TITULOS NUNCA SELECIONADOS
-// =============================================================
 void titulosNaoSelecionados(ListaDupla& listaCad) {
     separador("TITULOS NUNCA SELECIONADOS (Views = 0)");
 
@@ -318,9 +299,7 @@ void titulosNaoSelecionados(ListaDupla& listaCad) {
              << " titulo(s) nunca assistido(s)\033[0m\n";
 }
 
-// =============================================================
 //  PAINEL CONSOLIDADO
-// =============================================================
 void exibirEstatisticas(ListaDupla& listaCad, Estatisticas& est) {
     cout << "\n\033[1;34m";
     cout << "  ╔══════════════════════════════════════════════════╗\n";
